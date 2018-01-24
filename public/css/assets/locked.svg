@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="91px" height="108px" viewBox="0 0 91 108" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>locked</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-8.3%" y="-5.0%" width="116.7%" height="114.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.501960784   0 0 0 0 0.501960784   0 0 0 0 0.501960784  0 0 0 1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="locked" filter="url(#filter-1)" transform="translate(4.000000, 2.000000)" fill="#FFFFFF">
+            <path d="M14.5865297,27.1828767 L14.5865297,41.7027397 L8.36369863,41.7027397 C3.77945205,41.7027397 0.0662100457,45.4157534 0.0662100457,50 L0.0662100457,91.4865297 C0.0662100457,96.0705479 3.77945205,99.7833333 8.36369863,99.7833333 L74.7413242,99.7833333 C79.3253425,99.7833333 83.0392694,96.0705479 83.0392694,91.4865297 L83.0392694,50 C83.0392694,45.4157534 79.3253425,41.7027397 74.7413242,41.7027397 L68.5189498,41.7027397 L68.5189498,27.1828767 C68.5189498,12.289726 56.4454338,0.216894977 41.5527397,0.216894977 C26.6600457,0.216894977 14.5865297,12.2894977 14.5865297,27.1828767 Z M24.9582192,41.7027397 L24.9582192,27.1828767 C24.9582192,18.0146119 32.3840183,10.5881279 41.5525114,10.5881279 C50.7210046,10.5881279 58.1472603,18.0146119 58.1472603,27.1828767 L58.1472603,41.7027397 L24.9582192,41.7027397 Z M33.2552511,64.5203196 C33.2552511,59.9363014 36.9682648,56.2232877 41.5525114,56.2232877 C46.136758,56.2232877 49.8495434,59.9363014 49.8495434,64.5203196 C49.8495434,67.4454338 48.3349315,70.0178082 46.0538813,71.490411 C46.0538813,71.490411 46.8643836,76.386758 47.7757991,82.1522831 C47.7757991,83.8732877 46.3860731,85.2630137 44.6641553,85.2630137 L38.4408676,85.2630137 C36.7191781,85.2630137 35.3296804,83.8732877 35.3296804,82.1522831 L37.0515982,71.490411 C34.7703196,70.0178082 33.2552511,67.4452055 33.2552511,64.5203196 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

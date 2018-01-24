@@ -1,0 +1,95 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  h1 {
+    margin: 0;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.palette-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 10px;
+  width: 90%;
+}
+
+.single-color {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 15px;
+  border-radius: 25px;
+  width: 100px;
+  font-family: sans-serif;
+  font-size: 14pt;
+}
+
+.color-name {
+  color: #000;
+  opacity: 0.7;
+}
+
+.dark {
+  color: #fff;
+}
+
+#color1 {
+  background: #FF0000;
+}
+
+#color2 {
+  background: #FFFF00;
+}
+
+#color3 {
+  background: #00FF00;
+}
+
+#color4 {
+  background: #0000FF;
+}
+
+#color5 {
+  background: #FF00FF;
+}
+
+.lock-icon {
+  background-image: url('./assets/unlocked.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 27px;
+}
+
+.locked {
+  background-image: url('./assets/locked.svg');
+}
+
+
+.colors-btn {
+  font-size: 20pt;
+  border-radius: 10px;
+  padding: 5px;
+  width: 400px;
+  outline: none;
+}
