@@ -80,6 +80,14 @@ const savePalette = () => {
   //save palette to project selected
 }
 
+const viewProjects = () => {
+  $('.projects-container').removeClass('none');
+};
+
+const closeProjects = () => {
+  $('.projects-container').addClass('none');
+};
+
 $('.lock-icon').on('click', updateLock);
 $('.colors-btn').on('click', generatePalette);
 $(document).on('keyup', (e) => {
@@ -89,6 +97,8 @@ $(document).on('keyup', (e) => {
 });
 $('.save-btn').on('click', openSavePalette);
 $('.save-palette-btn').on('click', savePalette);
+$('.view-palettes-btn').on('click', viewProjects);
+$('.close-btn').on('click', closeProjects)
 
 
 

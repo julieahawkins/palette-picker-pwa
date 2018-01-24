@@ -13,7 +13,9 @@
     </header>
 
     <main>
-
+      <button class="view-palettes-btn">
+        Saved Palettes
+      </button>
       <div class="palette-container">
 
         <div class="single-color" id="color1">
@@ -43,35 +45,39 @@
       </div>
       
       <div class="palette-btn-container">
-        <button class="colors-btn">
-          Generate New Palette
-        </button>
+        <button class="colors-btn">Generate New Palette</button>
 
-        <button class="save-btn">
-          Save
-        </button>
+        <button class="save-btn">Save</button>
       </div>
 
       <div class="save-container none">
-        <select id="">
-          <option value="project1">project1</option>
-          <option value="project2">project2</option>
-        </select>
 
-        <input class="palette-input" type="text" placeholder="Palette Name...">
-
-        <button class="save-palette-btn">
-          Save Palette
-        </button>
-      </div>
-
-      <div class="projects-container">
-        <label>
-          Create a New Project:
+        <div class="create-project-container">
+          <label>Create a New Project:
           <input class="project-input" type="text" placeholder="Project Name..."> 
-        </label>
+          </label>
 
+          <button class="save-project-btn">Save Project</button>
+        </div>
+
+        <div class="save-palette-container">
+          <select id="">
+            <option value="project1">project1</option>
+            <option value="project2">project2</option>
+          </select>
+
+          <input class="palette-input" type="text" placeholder="Palette Name...">
+
+          <button class="save-palette-btn">Save Palette</button>
+        </div>
+
+      </div>
+      
+      <div class="projects-container none">
+        <header>
+          <div class="close-btn"></div>
           <h2>YOUR PALETTES</h2>
+        </header>
         <div class="projects">
 
           <div class="project">
@@ -98,6 +104,7 @@
 
         </div>
       </div>
+
 
     </main>
 
