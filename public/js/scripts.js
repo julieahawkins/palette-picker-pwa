@@ -61,14 +61,34 @@ const randomIndex = () => {
   return Math.floor(Math.random() * 16);
 };
 
+const openSavePalette = () => {
+  $('.save-container').removeClass('none');
+}
+
+const savePalette = () => {
+  $('.save-container').addClass('none');
+  console.log('palette name:', $('.palette-input').val());
+  const palette = {
+    color1: $(name1).text(),
+    color2: $(name2).text(),
+    color3: $(name3).text(),
+    color4: $(name4).text(),
+    color5: $(name5).text(), 
+  };
+  console.log(palette);
+  $('.palette-input').val('');
+  //save palette to project selected
+}
+
 $('.lock-icon').on('click', updateLock);
 $('.colors-btn').on('click', generatePalette);
-
 $(document).on('keyup', (e) => {
   if (e.keyCode === 32 && e.target === document.body) {
     generatePalette();
   }
 });
+$('.save-btn').on('click', openSavePalette);
+$('.save-palette-btn').on('click', savePalette);
 
 
 
