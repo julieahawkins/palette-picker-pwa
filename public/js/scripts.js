@@ -52,7 +52,7 @@ const generateColor = () => {
   const nums = letters.map(letter => randomIndex());
   const chars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...letters];
   const hex = `#${chars[nums[0]]}${chars[nums[1]]}${chars[nums[2]]}${chars[nums[3]]}${chars[nums[4]]}${chars[nums[5]]}`;
-  const isDark = (nums[0] + nums[2] + nums[4]) < 25;
+  const isDark = (nums[0] + nums[2] + nums[4]) < 19;
 
   return { hex, isDark };
 };
