@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="./css/style.css" type="text/css" />
   </head>
   <body>
+
     <header>
       <h1>PALETTE PICKER</h1>
     </header>
-    <main>
-      <div class="palette-container">
 
+    <main>
+
+      <div class="palette-container">
         <div class="single-color" id="color1">
           <span class="color-name dark" id="name1">
             #FF0000
@@ -47,12 +49,22 @@
           </span>
           <div id="lock5" class="lock-icon"></div>
         </div>
-
       </div>
 
       <button class="colors-btn">
         Generate New Palette
       </button>
+
+      <div class="save-container">
+        <select id="projects">
+          <option value="project1">project1</option>
+          <option value="project2">project2</option>
+        </select>
+        <input class="palette-input" type="text" placeholder="Palette Name">
+        <button class="save-palette-btn">
+          Save Palette
+        </button>
+      </div>
 
     </main>
 

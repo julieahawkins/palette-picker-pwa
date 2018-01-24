@@ -85,7 +85,6 @@ main {
   background-image: url('./assets/locked.svg');
 }
 
-
 .colors-btn {
   font-size: 20pt;
   border-radius: 10px;
@@ -93,3 +92,30 @@ main {
   width: 400px;
   outline: none;
 }
+
+.save-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 90%;
+  input,
+  button,
+  select,
+  option {
+    font-size: 16pt;
+    padding: 5px;
+    margin: 5px;
+  }
+}
+
+.save-palette-btn {
+  background: none;
+  border-radius: 10px;
+}
+
+
+
+
+
+
