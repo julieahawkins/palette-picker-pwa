@@ -106,7 +106,6 @@ const fetchProjects = async () => {
 };
 
 const displayProjectSelect = (projectTitle) => {
-  console.log(`in select: ${projectTitle}`)
   $('#projectSelect').append($('<option>', {
       value: projectTitle,
       text: projectTitle
@@ -114,8 +113,6 @@ const displayProjectSelect = (projectTitle) => {
 };
 
 const displayProjectPalettes = (projectTitle, palettes) => {
-  console.log(projectTitle);
-  console.log(palettes);
   palettes.forEach((colorPalette) => {
     $('.projects').append(
       `<div class="project">
@@ -133,6 +130,24 @@ const displayProjectPalettes = (projectTitle, palettes) => {
   });
 };
 
+const saveProject = async () => {
+  const title = $('.project-input').val();
+
+  const post = await fetch('/api/v1/projects', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title })
+  })
+
+  const project = await post.json();
+  console.log(project)
+  displayProjectSelect(title);
+}
+
+
+
 $(document).ready(fetchProjects());
 
 $('.lock-icon').on('click', updateLock);
@@ -146,7 +161,7 @@ $('.save-btn').on('click', openSavePalette);
 $('.save-palette-btn').on('click', savePalette);
 $('.view-palettes-btn').on('click', viewProjects);
 $('.close-btn').on('click', closeProjects);
-
+$('.save-project-btn').on('click', saveProject);
 
 
 
