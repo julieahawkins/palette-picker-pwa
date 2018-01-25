@@ -72,7 +72,7 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
     })
 });
 
-app.delete('/api/v1/project/:projectID/palettes/:id', (request, response) => {
+app.delete('/api/v1/projects/:projectID/palettes/:id', (request, response) => {
   const { projectID, id } = request.params;
   
   database('palettes').where('project_id', projectID).where('id', id).del()
