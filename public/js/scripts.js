@@ -63,7 +63,15 @@ const randomIndex = () => {
 
 const openSavePalette = () => {
   $('.save-container').removeClass('none');
-}
+};
+
+const viewProjects = () => {
+  $('.projects-container').removeClass('none');
+};
+
+const closeProjects = () => {
+  $('.projects-container').addClass('none');
+};
 
 const savePalette = () => {
   $('.save-container').addClass('none');
@@ -78,15 +86,54 @@ const savePalette = () => {
   console.log(palette);
   $('.palette-input').val('');
   //save palette to project selected
-}
-
-const viewProjects = () => {
-  $('.projects-container').removeClass('none');
 };
 
-const closeProjects = () => {
-  $('.projects-container').addClass('none');
+const fetchPalettes = async (project) => {
+  const fetchedPalette = await fetch(`/api/v1/projects/${project.id}/palettes`);
+  const palette = await fetchedPalette.json();
+
+  displayProjectPalettes(project.title, palette.palettes);
 };
+
+const fetchProjects = async () => {
+  const fetchedProjects = await fetch('/api/v1/projects');
+  const projects = await fetchedProjects.json();
+
+  projects.projects.forEach(project => {
+    displayProjectSelect(project.title)
+    fetchPalettes(project);
+  });
+};
+
+const displayProjectSelect = (projectTitle) => {
+  console.log(`in select: ${projectTitle}`)
+  $('#projectSelect').append($('<option>', {
+      value: projectTitle,
+      text: projectTitle
+  }));
+};
+
+const displayProjectPalettes = (projectTitle, palettes) => {
+  console.log(projectTitle);
+  console.log(palettes);
+  palettes.forEach((colorPalette) => {
+    $('.projects').append(
+      `<div class="project">
+        <h3>${projectTitle}</h3>
+        <span>${colorPalette.title}</span>
+        <div class="palette">
+          <div class="palette-color" style="background-color:${colorPalette.color1}"></div>
+          <div class="palette-color" style="background-color:${colorPalette.color2}"></div>
+          <div class="palette-color" style="background-color:${colorPalette.color3}"></div>
+          <div class="palette-color" style="background-color:${colorPalette.color4}"></div>
+          <div class="palette-color" style="background-color:${colorPalette.color5}"></div>
+        </div>  
+      </div>`
+    );
+  });
+};
+
+$(document).ready(fetchProjects());
 
 $('.lock-icon').on('click', updateLock);
 $('.colors-btn').on('click', generatePalette);
@@ -98,7 +145,8 @@ $(document).on('keyup', (e) => {
 $('.save-btn').on('click', openSavePalette);
 $('.save-palette-btn').on('click', savePalette);
 $('.view-palettes-btn').on('click', viewProjects);
-$('.close-btn').on('click', closeProjects)
+$('.close-btn').on('click', closeProjects);
+
 
 
 
