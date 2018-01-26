@@ -26,6 +26,8 @@ const paletteColors = [
   }
 ];
 
+let allPalettes = [];
+
 function updateLock () {
   $(this).toggleClass('locked');
 };
@@ -73,25 +75,11 @@ const closeProjects = () => {
   $('.projects-container').addClass('none');
 };
 
-const savePalette = () => {
-  $('.save-container').addClass('none');
-  console.log('palette name:', $('.palette-input').val());
-  const palette = {
-    color1: $(name1).text(),
-    color2: $(name2).text(),
-    color3: $(name3).text(),
-    color4: $(name4).text(),
-    color5: $(name5).text(), 
-  };
-  console.log(palette);
-  $('.palette-input').val('');
-  //save palette to project selected
-};
-
 const fetchPalettes = async (project) => {
   const fetchedPalette = await fetch(`/api/v1/projects/${project.id}/palettes`);
   const palette = await fetchedPalette.json();
 
+  allPalettes.push(...palette.palettes);
   displayProjectPalettes(project.title, palette.palettes);
 };
 
@@ -100,27 +88,25 @@ const fetchProjects = async () => {
   const projects = await fetchedProjects.json();
 
   projects.projects.forEach(project => {
-    displayProjectSelect(project.title)
+    displayProjectSelect(project.title, project.id)
     fetchPalettes(project);
   });
 };
 
-const displayProjectSelect = (projectTitle) => {
-  console.log(`in select: ${projectTitle}`)
+const displayProjectSelect = (projectTitle, projectID) => {
   $('#projectSelect').append($('<option>', {
-      value: projectTitle,
+      value: projectID,
       text: projectTitle
   }));
 };
 
 const displayProjectPalettes = (projectTitle, palettes) => {
-  console.log(projectTitle);
-  console.log(palettes);
   palettes.forEach((colorPalette) => {
     $('.projects').append(
       `<div class="project">
         <h3>${projectTitle}</h3>
-        <span>${colorPalette.title}</span>
+        <p>${colorPalette.title}</p>
+        <button class="delete-btn">delete</button>
         <div class="palette">
           <div class="palette-color" style="background-color:${colorPalette.color1}"></div>
           <div class="palette-color" style="background-color:${colorPalette.color2}"></div>
@@ -133,6 +119,72 @@ const displayProjectPalettes = (projectTitle, palettes) => {
   });
 };
 
+const saveProject = async () => {
+  const title = $('.project-input').val();
+
+  const post = await fetch('/api/v1/projects', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title })
+  });
+
+  const projectID = await post.json();
+  console.log(projectID)
+  displayProjectSelect(title, projectID);
+};
+
+const savePalette = async () => {
+  $('.save-container').addClass('none');
+
+  const title = $('.palette-input').val();
+  const id = $('#projectSelect').val();
+  const projectName = $('#projectSelect option:selected').text();
+  console.log(projectName);
+  const colors = {
+    color1: $(name1).text(),
+    color2: $(name2).text(),
+    color3: $(name3).text(),
+    color4: $(name4).text(),
+    color5: $(name5).text(), 
+  };
+  const palette = {title, ...colors};
+
+  const post = await fetch(`/api/v1/projects/${id}/palettes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(palette)
+  });
+
+  const postedPalette = await post.json();
+  console.log(postedPalette);
+
+  displayProjectPalettes(projectName, [palette]);
+
+  $('.palette-input').val('');
+};
+
+async function deletePalette () {
+  const projectName = $(this).parent().children('h3').text();
+  const id = $(`#projectSelect option:contains(${projectName})`).val();
+  
+  const paletteName = $(this).parent().children('p').text();
+  const paletteID = (allPalettes.find(palette => palette.title === paletteName)).id;
+
+  const paletteToDelete = await fetch(`/api/v1/projects/${id}/palettes/${paletteID}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  (this).closest('.project').remove();
+};
+
+
 $(document).ready(fetchProjects());
 
 $('.lock-icon').on('click', updateLock);
@@ -143,10 +195,11 @@ $(document).on('keyup', (e) => {
   }
 });
 $('.save-btn').on('click', openSavePalette);
+$('.save-project-btn').on('click', saveProject);
 $('.save-palette-btn').on('click', savePalette);
 $('.view-palettes-btn').on('click', viewProjects);
 $('.close-btn').on('click', closeProjects);
-
+$('.projects').on('click', '.delete-btn', deletePalette);
 
 
 
