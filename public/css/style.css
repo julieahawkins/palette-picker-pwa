@@ -1,0 +1,200 @@
+body {
+  background: #E5E5E5;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: sans-serif; }
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background: #333;
+  color: #fff;
+  margin: 0; }
+  header h1 {
+    margin: 0; }
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin-top: -50px; }
+
+.view-palettes-btn {
+  position: absolute;
+  top: 70px;
+  right: 60px;
+  font-size: 16pt;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px; }
+  .view-palettes-btn:hover {
+    color: #fff;
+    background: darkgrey; }
+
+#projectCount {
+  background: lightgrey;
+  padding: 6px;
+  border-radius: 0 8px 8px 0;
+  margin-right: -5px; }
+
+.palette-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 10px;
+  width: 90%; }
+
+.single-color {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 15px;
+  border-radius: 25px;
+  width: 120px;
+  font-family: sans-serif;
+  font-size: 14pt;
+  height: 300px; }
+
+.color-name {
+  color: #000;
+  opacity: 0.5;
+  font-weight: 900;
+  font-size: 18pt; }
+
+.dark {
+  color: #fff; }
+
+#color1 {
+  background: #FF0000; }
+
+#color2 {
+  background: #FFFF00; }
+
+#color3 {
+  background: #00FF00; }
+
+#color4 {
+  background: #0000FF; }
+
+#color5 {
+  background: #FF00FF; }
+
+.lock-icon {
+  background-image: url("./assets/unlocked.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 27px; }
+
+.locked {
+  background-image: url("./assets/locked.svg"); }
+
+.palette-btn-container {
+  display: flex; }
+
+.colors-btn,
+.save-btn {
+  font-size: 20pt;
+  border-radius: 10px;
+  padding: 5px;
+  width: 500px;
+  outline: none;
+  margin: 5px; }
+  .colors-btn:hover,
+  .save-btn:hover {
+    color: #fff;
+    background: darkgrey; }
+
+.colors-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  .colors-btn span {
+    font-size: 12pt; }
+
+.save-btn {
+  width: 100px; }
+
+.save-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 90%; }
+  .save-container label,
+  .save-container input,
+  .save-container button,
+  .save-container select,
+  .save-container option {
+    font-size: 16pt;
+    padding: 5px;
+    margin: 5px; }
+
+.save-palette-btn,
+.save-project-btn {
+  background: none;
+  border-radius: 10px; }
+  .save-palette-btn:hover,
+  .save-project-btn:hover {
+    color: #fff;
+    background: darkgrey; }
+
+.projects-container {
+  background: rgba(10, 10, 10, 0.8);
+  width: 95%;
+  height: 90%;
+  position: absolute;
+  top: 65px; }
+  .projects-container .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 40px;
+    background-image: url("./assets/close.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 35px;
+    width: 35px; }
+  .projects-container h2 {
+    margin: 0; }
+
+.projects {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 25px; }
+
+.project {
+  padding: 5px;
+  background: #fff;
+  border: 1px solid;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px; }
+  .project h3 {
+    margin-left: 15px; }
+
+.palette {
+  display: flex;
+  margin: 15px; }
+
+.palette-color {
+  width: 50px;
+  height: 50px; }
+
+.none {
+  display: none; }
