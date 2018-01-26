@@ -140,7 +140,7 @@ const savePalette = async () => {
 
   const title = $('.palette-input').val();
   const id = $('#projectSelect').val();
-  const projectName = $('#projectSelect').text();
+  const projectName = $('#projectSelect option:selected').text();
   console.log(projectName);
   const colors = {
     color1: $(name1).text(),
