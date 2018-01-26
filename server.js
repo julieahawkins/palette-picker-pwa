@@ -42,7 +42,7 @@ app.post('/api/v1/projects', (request, response) => {
 
   for (let requiredParameter of [ 'title' ]) {
     if (!project[requiredParameter]) {
-      return response.status(422).json({ error: `You are missing ${requireParameter}` });
+      return response.status(422).json({ error: `You are missing ${requiredParameter}` });
     }
   }
 
@@ -61,7 +61,7 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
 
   for (let requiredParameter of [ 'title' ]) {
     if (!palette[requiredParameter]) {
-      return response.status(422).json({ error: `You are missing ${requireParameter}` });
+      return response.status(422).json({ error: `You are missing ${requiredParameter}` });
     }
   }
 
@@ -89,3 +89,5 @@ app.delete('/api/v1/projects/:projectID/palettes/:id', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 });
+
+module.exports = app;
