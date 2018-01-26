@@ -13,7 +13,7 @@
     </header>
 
     <main>
-      <button class="view-palettes-btn">Saved Projects</button>
+      <button class="view-palettes-btn">Saved Projects <span id="projectCount">0</span> </button>
       <div class="palette-container">
 
         <div class="single-color" id="color1">
@@ -43,9 +43,11 @@
       </div>
       
       <div class="palette-btn-container">
-        <button class="colors-btn">Generate New Palette</button>
+        <button class="colors-btn">Generate New Palette <span>(click here or space-bar)</span></button>
 
-        <button class="save-btn">Save</button>
+        <button class="save-btn">
+          <!-- <div class="heart"></div> -->
+        Save</button>
       </div>
 
       <div class="save-container none">
@@ -59,6 +61,8 @@
         </div>
 
         <div class="save-palette-container">
+          <!-- <button>Create a New Project</button> -->
+
           <select id="projectSelect">
             <!-- created project titles append here -->
           </select>
