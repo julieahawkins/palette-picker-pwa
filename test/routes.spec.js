@@ -33,20 +33,53 @@ describe('Client Routes', () => {
 
 describe('API Routes', () => {
   describe('GET /api/v1/projects', () => {
-    it.skip('should return all of the projects', () => {
+    it('should return all of the projects', () => {
       return chai.request(server)
       .get('/api/v1/projects')
       .then(response => {
         response.should.have.status(200);
         response.should.be.json;
         response.body.should.be.a('object');
-        // response.body.length.should.equal(3);
-
-        // response.body[0].should.have.property('title');
-        // response.body[0].lastname.should.equal('Stella Via');
+        response.body.projects.should.be.a('array');
 
         let expectedProject = { title: 'Stella Via' };
-        response.body.project.should.equal(project);
+        let testProject = response.body.projects.find(project => project.title === expectedProject.title);
+        testProject.should.have.property('title');
+        testProject.should.have.property('id');
+      })
+      .catch(error => {
+        throw error;
+      })
+    })
+  });
+
+  describe('POST /api/v1/projects', () => {
+    it('should create a new project', () => {
+      return chai.request(server)
+      .post('/api/v1/projects')
+      .send({ 
+        title: 'Dark',
+      })
+      .then(response => {
+        response.should.have.status(201);
+        response.should.be.json;
+        response.body.should.be.a('object');
+        response.body.should.have.property('id');
+      })
+      .catch(error => {
+        throw error;
+      })
+    });
+
+    it.skip('should not create a project with missing data', () => {
+      return chai.request(server)
+      .post('/api/v1/projects')
+      .send({
+        wrong: 'wrong'
+      })
+      .then(response => {
+        response.should.have.status(422);
+        response.body.error.should.equal('You are missing title');
       })
       .catch(error => {
         throw error;
