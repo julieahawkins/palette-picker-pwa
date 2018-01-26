@@ -90,6 +90,7 @@ const fetchProjects = async () => {
   projects.projects.forEach(project => {
     displayProjectSelect(project.title, project.id)
     fetchPalettes(project);
+    updateCount();
   });
 };
 
@@ -119,6 +120,12 @@ const displayProjectPalettes = (projectTitle, palettes) => {
   });
 };
 
+const updateCount = () => {
+  let num = parseInt($(projectCount).text());
+  num += 1;
+  $(projectCount).text(num);
+};
+
 const saveProject = async () => {
   const title = $('.project-input').val();
 
@@ -133,6 +140,8 @@ const saveProject = async () => {
   const projectID = await post.json();
   console.log(projectID)
   displayProjectSelect(title, projectID);
+  updateCount();
+  $('.project-input').val('');
 };
 
 const savePalette = async () => {
@@ -200,10 +209,5 @@ $('.save-palette-btn').on('click', savePalette);
 $('.view-palettes-btn').on('click', viewProjects);
 $('.close-btn').on('click', closeProjects);
 $('.projects').on('click', '.delete-btn', deletePalette);
-
-
-
-
-
 
 
