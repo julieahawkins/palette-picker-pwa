@@ -123,20 +123,6 @@ main {
   background: #FF00FF;
 }
 
-// .lock-icon {
-//   background-image: url('./assets/unlocked.svg');
-//   background-position: center;
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   cursor: pointer;
-//   height: 60px;
-//   width: 42px;
-// }
-
-// .locked {
-//   background-image: url('./assets/locked.svg');
-// }
-
 .palette-btn-container {
   display: flex;
 }
@@ -193,6 +179,14 @@ main {
     font-size: 16pt;
     padding: 5px;
     margin: 5px;
+  }
+  button {
+    background: #FFF;
+    border-radius: 10px;
+    &:hover {
+      color: #fff;
+      background: darkgrey;
+    }
   }
 }
 

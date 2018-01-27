@@ -144,6 +144,12 @@ main {
     font-size: 16pt;
     padding: 5px;
     margin: 5px; }
+  .save-container button {
+    background: #FFF;
+    border-radius: 10px; }
+    .save-container button:hover {
+      color: #fff;
+      background: darkgrey; }
 
 .save-palette-btn,
 .save-project-btn {

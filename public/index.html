@@ -51,8 +51,13 @@
       </div>
 
       <div class="save-container none">
+        <div class="save-prompt-container">
+          <button class="open-save-projects-btn">Create a New Project</button>
+          <span>OR</span>
+          <button class="open-save-palettes-btn">Save Palette to an Existing Project</button>
+        </div>
 
-        <div class="create-project-container">
+        <div class="create-project-container none">
           <label>Create a New Project:
           <input class="project-input" type="text" placeholder="Project Name..."> 
           </label>
@@ -60,8 +65,7 @@
           <button class="save-project-btn">Save Project</button>
         </div>
 
-        <div class="save-palette-container">
-          <!-- <button>Create a New Project</button> -->
+        <div class="save-palette-container none">
 
           <select id="projectSelect">
             <!-- created project titles append here -->
@@ -71,6 +75,7 @@
 
           <button class="save-palette-btn">Save Palette</button>
         </div>
+
 
       </div>
       
