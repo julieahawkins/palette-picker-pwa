@@ -34,6 +34,7 @@ function updateLock () {
 
 const updateHexName = (isDark, hexName) => {
   const result = isDark ? hexName.addClass('dark') : hexName.removeClass('dark');
+
   return result;
 };
 
@@ -80,6 +81,7 @@ const fetchPalettes = async (project) => {
   const palette = await fetchedPalette.json();
 
   allPalettes.push(...palette.palettes);
+  
   displayProjectPalettes(project.title, palette.palettes);
 };
 

@@ -22,7 +22,7 @@ app.get('/api/v1/projects', (request, response) => {
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.get('/api/v1/projects/:id/palettes', (request, response) => {
@@ -34,7 +34,7 @@ app.get('/api/v1/projects/:id/palettes', (request, response) => {
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.post('/api/v1/projects', (request, response) => {
@@ -52,7 +52,7 @@ app.post('/api/v1/projects', (request, response) => {
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
@@ -67,11 +67,11 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
 
   database('palettes').insert(palette, 'id')
     .then(palette => {
-      return response.status(201).json({ id: palette[0] })
+      return response.status(201).json({ id: palette[0] });
     })
     .catch(error => {
-      return response.status(500).json({ error })
-    })
+      return response.status(500).json({ error });
+    });
 });
 
 app.delete('/api/v1/projects/:projectID/palettes/:id', (request, response) => {
@@ -79,15 +79,15 @@ app.delete('/api/v1/projects/:projectID/palettes/:id', (request, response) => {
   
   database('palettes').where('project_id', projectID).where('id', id).del()
     .then(result => {
-      return response.status(204).json({ result })
+      return response.status(204).json({ result });
     })
     .catch(error => {
-      return response.status(500).json({ error })
-    })
+      return response.status(500).json({ error });
+    });
 });
 
 app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+  console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
 
 module.exports = app;
