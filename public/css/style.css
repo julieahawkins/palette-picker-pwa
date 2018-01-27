@@ -127,7 +127,20 @@ main {
     font-size: 12pt; }
 
 .save-btn {
-  width: 100px; }
+  width: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .save-btn .heart {
+    background-image: url("./assets/heart.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 23px;
+    width: 25px;
+    margin: 0 3px; }
+  .save-btn:hover .heart {
+    background-image: url("./assets/heart-hover.svg"); }
 
 .save-container {
   background: rgba(10, 10, 10, 0.8);
