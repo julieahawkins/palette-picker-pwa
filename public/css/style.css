@@ -130,6 +130,10 @@ main {
   width: 100px; }
 
 .save-container {
+  background: rgba(10, 10, 10, 0.8);
+  position: absolute;
+  top: 350px;
+  color: #FFF;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -68,8 +68,19 @@ const randomIndex = () => {
   return Math.floor(Math.random() * 16);
 };
 
-const openSavePalette = () => {
+const openSavePrompt = () => {
   $('.save-container').removeClass('none');
+};
+
+const openSaveProject = () => {
+  $('.save-prompt-container').addClass('none');
+  $('.create-project-container').removeClass('none');
+};
+
+const openSavePalette = () => {
+  $('.save-prompt-container').addClass('none');
+  $('.create-project-container').removeClass('none');
+  $('.save-palette-container').removeClass('none');
 };
 
 const viewProjects = () => {
@@ -145,9 +156,10 @@ const saveProject = async () => {
 
   const projectID = await post.json();
   console.log(projectID)
-  displayProjectSelect(title, projectID);
+  displayProjectSelect(title, projectID.id);
   updateCount();
   $('.project-input').val('');
+  openSavePalette();
 };
 
 const savePalette = async () => {
@@ -156,7 +168,11 @@ const savePalette = async () => {
   const title = $('.palette-input').val();
   const id = $('#projectSelect').val();
   const projectName = $('#projectSelect option:selected').text();
-  console.log(projectName);
+
+  console.log('title:', title)
+  console.log('project name:', projectName)
+  console.log(id)
+
   const colors = {
     color1: $(name1).text(),
     color2: $(name2).text(),
@@ -165,6 +181,8 @@ const savePalette = async () => {
     color5: $(name5).text(), 
   };
   const palette = {title, ...colors};
+
+  console.log('palette:', palette)
 
   const post = await fetch(`/api/v1/projects/${id}/palettes`, {
     method: 'POST',
@@ -201,17 +219,21 @@ async function deletePalette () {
 
 
 $(document).ready(fetchProjects());
-
-$('.lock-icon').on('click', updateLock);
-$('.colors-btn').on('click', generatePalette);
 $(document).on('keyup', (e) => {
   if (e.keyCode === 32 && e.target === document.body) {
     generatePalette();
   }
 });
-$('.save-btn').on('click', openSavePalette);
+$('.colors-btn').on('click', generatePalette);
+$('.lock-icon').on('click', updateLock);
+
+$('.save-btn').on('click', openSavePrompt);
+$('.open-save-projects-btn').on('click', openSaveProject);
+$('.open-save-palettes-btn').on('click', openSavePalette);
+
 $('.save-project-btn').on('click', saveProject);
 $('.save-palette-btn').on('click', savePalette);
+
 $('.view-palettes-btn').on('click', viewProjects);
 $('.close-btn').on('click', closeProjects);
 $('.projects').on('click', '.delete-btn', deletePalette);
