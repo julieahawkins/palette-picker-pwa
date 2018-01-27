@@ -111,13 +111,13 @@ const fetchProjects = async () => {
   const projects = await fetchedProjects.json();
 
   projects.projects.forEach(project => {
-    displayProjectSelect(project.title, project.id)
+    appendProjectOption(project.title, project.id)
     fetchPalettes(project);
     updateCount();
   });
 };
 
-const displayProjectSelect = (projectTitle, projectID) => {
+const appendProjectOption = (projectTitle, projectID) => {
   $('#projectSelect').append($('<option>', {
       value: projectID,
       text: projectTitle
@@ -146,39 +146,49 @@ const displayProjectPalettes = (projectTitle, palettes) => {
 const updateCount = () => {
   let num = parseInt($(projectCount).text());
   num += 1;
+
   $(projectCount).text(num);
 };
 
 const saveProject = async () => {
   const title = $('.project-input').val();
+  const alreadyExists = $(`#projectSelect option:contains(${title})`).val();
 
-  const post = await fetch('/api/v1/projects', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ title })
-  });
+  if (!alreadyExists) {
+    const post = await fetch('/api/v1/projects', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title })
+    });
 
-  const projectID = await post.json();
-  console.log(projectID)
-  displayProjectSelect(title, projectID.id);
-  updateCount();
-  $('.project-input').val('');
-  openSavePalette();
+    const projectID = await post.json();
+
+    appendProjectOption(title, projectID.id);
+
+    updateCount();
+
+    $('.project-input').val('');
+
+    openSavePalette();
+  } else {
+    $('.create-project-container').append(
+      `<h3>A project already exists with that name!</h3>`
+    );
+    $('.project-input').val('');
+  }
+
 };
 
 const savePalette = async () => {
   $('.save-container').addClass('none');
 
-  const title = $('.palette-input').val();
-  const id = $('#projectSelect').val();
   const projectName = $('#projectSelect option:selected').text();
+  const id = $('#projectSelect').val();
+  console.log(id);
 
-  console.log('title:', title)
-  console.log('project name:', projectName)
-  console.log(id)
-
+  const title = $('.palette-input').val();
   const colors = {
     color1: $(name1).text(),
     color2: $(name2).text(),
@@ -186,9 +196,8 @@ const savePalette = async () => {
     color4: $(name4).text(),
     color5: $(name5).text(), 
   };
-  const palette = {title, ...colors};
 
-  console.log('palette:', palette)
+  const palette = { title, ...colors };
 
   const post = await fetch(`/api/v1/projects/${id}/palettes`, {
     method: 'POST',
@@ -199,7 +208,6 @@ const savePalette = async () => {
   });
 
   const postedPalette = await post.json();
-  console.log(postedPalette);
 
   displayProjectPalettes(projectName, [palette]);
 
