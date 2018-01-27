@@ -40,6 +40,12 @@ const setDarkClass = (isDark, colorElement) => {
   return result;
 };
 
+const setNoneClass = (bool, element) => {
+  const result = bool ? element.addClass('none') : element.removeClass('none');
+
+  return result;
+};
+
 const generatePalette = () => {
   paletteColors.forEach(color => {
     if (!$(color.lock).hasClass('locked')) {
@@ -47,7 +53,7 @@ const generatePalette = () => {
 
       $(color.div).css("background", hex);
       $(color.hexName).text(hex);
-      // updateHexName(isDark, $(color.hexName));
+
       setDarkClass(isDark, $(color.hexName));
       setDarkClass(isDark, $(color.lock));
     }
@@ -69,26 +75,26 @@ const randomIndex = () => {
 };
 
 const openSavePrompt = () => {
-  $('.save-container').removeClass('none');
+  setNoneClass(false, $('.save-container'));
 };
 
 const openSaveProject = () => {
-  $('.save-prompt-container').addClass('none');
-  $('.create-project-container').removeClass('none');
+  setNoneClass(true, $('.save-prompt-container'));
+  setNoneClass(false, $('.create-project-container'));
 };
 
 const openSavePalette = () => {
-  $('.save-prompt-container').addClass('none');
-  $('.create-project-container').removeClass('none');
-  $('.save-palette-container').removeClass('none');
+  setNoneClass(true, $('.save-prompt-container'));
+  setNoneClass(true, $('.create-project-container'));
+  setNoneClass(false, $('.save-palette-container'));
 };
 
 const viewProjects = () => {
-  $('.projects-container').removeClass('none');
+  setNoneClass(false, $('.projects-container'));
 };
 
 const closeProjects = () => {
-  $('.projects-container').addClass('none');
+  setNoneClass(true, $('.projects-container'));
 };
 
 const fetchPalettes = async (project) => {
