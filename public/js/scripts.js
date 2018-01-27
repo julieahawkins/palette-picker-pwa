@@ -32,8 +32,10 @@ function updateLock () {
   $(this).toggleClass('locked');
 };
 
-const updateHexName = (isDark, hexName) => {
-  const result = isDark ? hexName.addClass('dark') : hexName.removeClass('dark');
+const setDarkClass = (isDark, colorElement) => {
+  const result = isDark 
+    ? colorElement.addClass('dark') 
+    : colorElement.removeClass('dark');
 
   return result;
 };
@@ -45,7 +47,9 @@ const generatePalette = () => {
 
       $(color.div).css("background", hex);
       $(color.hexName).text(hex);
-      updateHexName(isDark, $(color.hexName));
+      // updateHexName(isDark, $(color.hexName));
+      setDarkClass(isDark, $(color.hexName));
+      setDarkClass(isDark, $(color.lock));
     }
   });
 };
@@ -81,7 +85,7 @@ const fetchPalettes = async (project) => {
   const palette = await fetchedPalette.json();
 
   allPalettes.push(...palette.palettes);
-  
+
   displayProjectPalettes(project.title, palette.palettes);
 };
 

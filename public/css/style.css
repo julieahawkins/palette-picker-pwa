@@ -63,6 +63,20 @@ main {
   font-family: sans-serif;
   font-size: 14pt;
   height: 300px; }
+  .single-color .lock-icon {
+    background-image: url("./assets/unlocked.svg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 60px;
+    width: 42px; }
+  .single-color .locked {
+    background-image: url("./assets/locked.svg"); }
+  .single-color .lock-icon.dark {
+    background-image: url("./assets/unlocked-dark.svg"); }
+  .single-color .locked.dark {
+    background-image: url("./assets/locked-dark.svg"); }
 
 .color-name {
   color: #000;
@@ -87,17 +101,6 @@ main {
 
 #color5 {
   background: #FF00FF; }
-
-.lock-icon {
-  background-image: url("./assets/unlocked.svg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 30px;
-  width: 27px; }
-
-.locked {
-  background-image: url("./assets/locked.svg"); }
 
 .palette-btn-container {
   display: flex; }
