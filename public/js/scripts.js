@@ -130,7 +130,6 @@ const appendProjectOption = (projectTitle, projectID) => {
       value: projectID,
       text: projectTitle
   }));
-  // $(`#projectSelect option[value=${projectID}]`).prop('selected', true);
 };
 
 const appendProjects = (projectTitle) => {
@@ -292,7 +291,6 @@ async function deletePalette () {
 
   (this).closest('.project').remove();
 };
-
 
 $(document).ready(fetchProjects());
 $(document).on('keyup', (e) => {
