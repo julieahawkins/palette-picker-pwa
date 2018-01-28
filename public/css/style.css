@@ -5,36 +5,36 @@ body {
   min-height: 100vh;
   font-family: sans-serif; }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  background: #333;
-  color: #fff;
-  margin: 0; }
-  header h1 {
-    margin: 0; }
-
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  margin-top: -50px; }
+  margin-top: -100px; }
 
-.view-palettes-btn {
-  position: absolute;
-  top: 70px;
-  right: 60px;
-  font-size: 16pt;
-  border-radius: 10px;
-  padding: 5px;
-  margin: 5px; }
-  .view-palettes-btn:hover {
-    color: #fff;
-    background: darkgrey; }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background: #333;
+  color: #fff;
+  margin: 0; }
+  header h1 {
+    margin: 0;
+    font-size: 40pt; }
+  header .view-palettes-btn {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    font-size: 20pt;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px; }
+    header .view-palettes-btn:hover {
+      color: #fff;
+      background: darkgrey; }
 
 #projectCount {
   background: lightgrey;
@@ -47,7 +47,7 @@ main {
   align-items: center;
   justify-content: center;
   padding: 15px;
-  margin: 15px;
+  margin: 30px;
   border-radius: 10px;
   width: 90%; }
 
@@ -59,10 +59,10 @@ main {
   height: 100px;
   padding: 15px;
   border-radius: 25px;
-  width: 120px;
+  width: 200px;
   font-family: sans-serif;
   font-size: 14pt;
-  height: 300px; }
+  height: 420px; }
   .single-color .lock-icon {
     background-image: url("./assets/unlocked.svg");
     background-position: center;
@@ -110,7 +110,7 @@ main {
   font-size: 20pt;
   border-radius: 10px;
   padding: 5px;
-  width: 500px;
+  width: 600px;
   outline: none;
   margin: 5px; }
   .colors-btn:hover,
@@ -127,7 +127,7 @@ main {
     font-size: 12pt; }
 
 .save-btn {
-  width: 140px;
+  width: 240px;
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -145,14 +145,17 @@ main {
 .save-container {
   background: rgba(10, 10, 10, 0.8);
   position: absolute;
-  top: 350px;
+  top: 250px;
   color: #FFF;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  width: 90%; }
+  padding: 20px 0;
+  width: 100%; }
+  .save-container span {
+    font-size: 16pt; }
   .save-container label,
   .save-container input,
   .save-container button,
@@ -160,13 +163,19 @@ main {
   .save-container option {
     font-size: 16pt;
     padding: 5px;
-    margin: 5px; }
+    margin: 10px; }
   .save-container button {
     background: #FFF;
     border-radius: 10px; }
     .save-container button:hover {
       color: #fff;
       background: darkgrey; }
+
+.save-prompt-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
 
 .save-palette-btn,
 .save-project-btn {
@@ -179,10 +188,10 @@ main {
 
 .projects-container {
   background: rgba(10, 10, 10, 0.8);
-  width: 95%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: 65px; }
+  top: 0; }
   .projects-container .close-btn {
     position: absolute;
     top: 5px;
