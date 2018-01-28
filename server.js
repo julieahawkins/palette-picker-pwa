@@ -7,6 +7,15 @@ const environment = process.env.NODE_ENV || 'development';
 const config = require('./knexfile')[environment];
 const database = require('knex')(config);
 
+function checkParams(body, prop) {
+  for (let requiredParameter of [ prop ]) {
+    if (!body[requiredParameter]) {
+      return { propsFound: false, requiredParameter }
+    }
+  }
+  return { propsFound: true }
+};
+
 app.set('port', process.env.PORT || 3000);
 
 app.use(bodyParser.json());
@@ -39,11 +48,13 @@ app.get('/api/v1/projects/:id/palettes', (request, response) => {
 
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
+  
+  const result = checkParams(project, 'title');
 
-  for (let requiredParameter of [ 'title' ]) {
-    if (!project[requiredParameter]) {
-      return response.status(422).json({ error: `You are missing ${requiredParameter}` });
-    }
+  if (!result.propsFound) {
+    return response.status(422).json({ 
+      error: `You are missing ${result.requiredParameter}` 
+    });
   }
 
   database('projects').insert(project, 'id')
@@ -58,11 +69,13 @@ app.post('/api/v1/projects', (request, response) => {
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
   const { id } = request.params;
   const palette = Object.assign({}, request.body, { project_id: id });
-
-  for (let requiredParameter of [ 'title' ]) {
-    if (!palette[requiredParameter]) {
-      return response.status(422).json({ error: `You are missing ${requiredParameter}` });
-    }
+  
+  const result = checkParams(palette, 'title');
+  
+  if (!result.propsFound) {
+    return response.status(422).json({ 
+      error: `You are missing ${result.requiredParameter}` 
+    });
   }
 
   database('palettes').insert(palette, 'id')
