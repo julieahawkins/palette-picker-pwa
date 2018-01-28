@@ -22,15 +22,26 @@ const generatePalette = () => {
   });
 };
 
-
 const generateColor = () => {
   const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
   const nums = letters.map(letter => randomIndex());
   const chars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...letters];
   const hex = `#${chars[nums[0]]}${chars[nums[1]]}${chars[nums[2]]}${chars[nums[3]]}${chars[nums[4]]}${chars[nums[5]]}`;
-  const isDark = (nums[0] + nums[2] + nums[4]) < 19;
+  const isDark = determineDarkness(nums);
 
   return { hex, isDark };
+};
+
+const determineDarkness = (nums) => {
+  console.log(nums)
+  const sum = nums.reduce((sum, num, index) => {
+    if ( index % 2 === 0 ) {
+      sum += num;
+    }
+    return sum;
+  }, 0);
+
+  return sum < 19;
 };
 
 const randomIndex = () => {
@@ -112,7 +123,6 @@ const appendProjectOption = (projectTitle, projectID) => {
 };
 
 const appendProjects = (projectTitle) => {
-  console.log(projectTitle)
   const projectTitleClass = projectTitle.replace(/\s/g, '');
 
   $('.projects').append(
@@ -135,17 +145,20 @@ const appendPalettes = (projectTitle, palettes) => {
 
     palettes.forEach(colorPalette =>{
       $(`.${projectTitleClass}`).append(
-        `<header>
-          <p>${colorPalette.title}</p>
-          <button class="delete-btn"></button>
-        </header>
-        <div class="palette">
-          <div class="palette-color" style="background-color:${colorPalette.color1}"></div>
-          <div class="palette-color" style="background-color:${colorPalette.color2}"></div>
-          <div class="palette-color" style="background-color:${colorPalette.color3}"></div>
-          <div class="palette-color" style="background-color:${colorPalette.color4}"></div>
-          <div class="palette-color" style="background-color:${colorPalette.color5}"></div>
-        </div> `
+        `<div class="single-palette">
+          <header>
+            <p class="palette-title">${colorPalette.title}</p>
+            <button class="delete-btn"></button>
+          </header>
+          <div class="palette">
+            <div class="palette-color" style="background-color:${colorPalette.color1}"></div>
+            <div class="palette-color" style="background-color:${colorPalette.color2}"></div>
+            <div class="palette-color" style="background-color:${colorPalette.color3}"></div>
+            <div class="palette-color" style="background-color:${colorPalette.color4}"></div>
+            <div class="palette-color" style="background-color:${colorPalette.color5}"></div>
+          </div>
+        </div>
+        `
       );
     });
   }
@@ -194,7 +207,6 @@ const savePalette = async () => {
 
   const projectName = $('#projectSelect option:selected').text();
   const id = $('#projectSelect').val();
-  console.log(id);
 
   const title = $('.palette-input').val();
   const colors = {
@@ -223,6 +235,37 @@ const savePalette = async () => {
 
   $('.palette-input').val('');
 };
+
+function selectPalette () {
+  const paletteName = $(this).parent().children().children('.palette-title').text();
+  const selectedPalette = allPalettes.find( palette => palette.title === paletteName );
+
+  const { color1, color2, color3, color4, color5 } = selectedPalette;
+  const colors = Object.values({ color1, color2, color3, color4, color5 });
+
+  mainPalette.forEach((color, index) => {
+    const hex = colors[index];
+
+    $(color.div).css("background", hex);
+    $(color.hexName).text(hex);
+
+    let hexChars = [...hex];
+
+    hexChars.shift();
+    console.log(hexChars)
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ...letters];
+
+    const nums = hexChars.map( char => chars.indexOf(char) );
+
+    let isDark = determineDarkness(nums);
+    console.log(isDark)
+    setDarkClass(isDark, $(color.hexName));
+    setDarkClass(isDark, $(color.lock));
+  });
+
+  closeProjects();
+}; 
 
 async function deletePalette () {
   const paletteName = $(this).parent().children('p').text();
@@ -260,6 +303,7 @@ $('.save-palette-btn').on('click', savePalette);
 
 $('.view-palettes-btn').on('click', viewProjects);
 $('.close-btn').on('click', closeProjects);
+$('.projects').on('click', '.palette', selectPalette);
 $('.projects').on('click', '.delete-btn', deletePalette);
 
 
