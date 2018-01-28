@@ -8,6 +8,9 @@ const mainPalette = [
 
 let allPalettes = [];
 
+const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+const chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ...letters];
+
 const generatePalette = () => {
   mainPalette.forEach(color => {
     if (!$(color.lock).hasClass('locked')) {
@@ -23,17 +26,18 @@ const generatePalette = () => {
 };
 
 const generateColor = () => {
-  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
   const nums = letters.map(letter => randomIndex());
-  const chars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...letters];
   const hex = `#${chars[nums[0]]}${chars[nums[1]]}${chars[nums[2]]}${chars[nums[3]]}${chars[nums[4]]}${chars[nums[5]]}`;
   const isDark = determineDarkness(nums);
 
   return { hex, isDark };
 };
 
+const randomIndex = () => {
+  return Math.floor(Math.random() * 16);
+};
+
 const determineDarkness = (nums) => {
-  console.log(nums)
   const sum = nums.reduce((sum, num, index) => {
     if ( index % 2 === 0 ) {
       sum += num;
@@ -42,10 +46,6 @@ const determineDarkness = (nums) => {
   }, 0);
 
   return sum < 19;
-};
-
-const randomIndex = () => {
-  return Math.floor(Math.random() * 16);
 };
 
 function updateLock () {
@@ -63,6 +63,11 @@ const setNoneClass = (bool, element) => {
 
   return result;
 };
+
+const clearInput = (input) => {
+  input.val('');
+};
+
 const openSavePrompt = () => {
   setNoneClass(false, $('.save-container'));
 
@@ -91,23 +96,26 @@ const closeProjects = () => {
   setNoneClass(true, $('.projects-container'));
 };
 
-const fetchPalettes = async (project) => {
-  const fetchedPalette = await fetch(`/api/v1/projects/${project.id}/palettes`);
-  const palette = await fetchedPalette.json();
+const fetchProjects = async () => {
+  const fetchResult = await fetch('/api/v1/projects');
+  const fetchedProjects = await fetchResult.json();
 
-  allPalettes.push(...palette.palettes);
-
-  return [...palette.palettes]; 
+  populateProjects(fetchedProjects.projects);
 };
 
-const fetchProjects = async () => {
-  const fetchedProjects = await fetch('/api/v1/projects');
-  const projects = await fetchedProjects.json();
+const fetchPalettes = async (project) => {
+  const fetchResult = await fetch(`/api/v1/projects/${project.id}/palettes`);
+  const fetchedPalettes = await fetchResult.json();
 
-  projects.projects.forEach( async (project) => {
+  allPalettes.push(...fetchedPalettes.palettes);
+
+  return [...fetchedPalettes.palettes]; 
+};
+
+const populateProjects = (projects) => {
+  projects.forEach( async (project) => {
     appendProjectOption(project.title, project.id);
     appendProjects(project.title);
-
     const palettes = await fetchPalettes(project);
 
     appendPalettes(project.title, palettes);
@@ -120,6 +128,7 @@ const appendProjectOption = (projectTitle, projectID) => {
       value: projectID,
       text: projectTitle
   }));
+  // $(`#projectSelect option[value=${projectID}]`).prop('selected', true);
 };
 
 const appendProjects = (projectTitle) => {
@@ -127,13 +136,13 @@ const appendProjects = (projectTitle) => {
 
   $('.projects').append(
     `<div class="project">
-        <header>
-          <h3>${projectTitle}</h3>
-        </header>
-        <div class="palettes ${projectTitleClass}">
-          <h5>This project has no saved Palettes...</h5>
-        </div>
-      </div>`
+      <header>
+        <h3>${projectTitle}</h3>
+      </header>
+      <div class="palettes ${projectTitleClass}">
+        <h5>This project has no saved Palettes...</h5>
+      </div>
+    </div>`
   );
 };
 
@@ -157,8 +166,7 @@ const appendPalettes = (projectTitle, palettes) => {
             <div class="palette-color" style="background-color:${colorPalette.color4}"></div>
             <div class="palette-color" style="background-color:${colorPalette.color5}"></div>
           </div>
-        </div>
-        `
+        </div>`
       );
     });
   }
@@ -176,49 +184,61 @@ const saveProject = async () => {
   const alreadyExists = $(`#projectSelect option:contains(${title})`).val();
 
   if (!alreadyExists) {
-    const post = await fetch('/api/v1/projects', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ title })
-    });
-
-    const projectID = await post.json();
-
-    appendProjectOption(title, projectID.id);
-    appendProjects(title);
-    updateCount();
-
-    $('.project-input').val('');
-
-    openSavePalette();
+    createProject(title);
   } else {
-    $('.create-project-container').append(
-      `<h3>A project already exists with that name!</h3>`
-    );
-    $('.project-input').val('');
+    displayWarning($('.create-project-container'), `A project called ${title} already exists!`);
   }
+  clearInput($('.project-input'));
+};
 
+const createProject = async (title) => {
+  const post = await fetch('/api/v1/projects', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title })
+  });
+  const projectID = await post.json();
+
+  appendProjectOption(title, projectID.id);
+  appendProjects(title);
+  updateCount();
+  $(`#projectSelect option[value=${projectID}]`).prop('selected', true);
+  openSavePalette();
+};
+
+const displayWarning = (elem, msg) => {
+  elem.append(msg);
 };
 
 const savePalette = async () => {
-  $('.save-container').addClass('none');
-
-  const projectName = $('#projectSelect option:selected').text();
-  const id = $('#projectSelect').val();
-
   const title = $('.palette-input').val();
-  const colors = {
-    color1: $(name1).text(),
-    color2: $(name2).text(),
-    color3: $(name3).text(),
-    color4: $(name4).text(),
-    color5: $(name5).text(), 
+  const colors = { 
+    color1: $(name1).text(), 
+    color2: $(name2).text(), 
+    color3: $(name3).text(), 
+    color4: $(name4).text(), 
+    color5: $(name5).text() 
   };
-
   const palette = { title, ...colors };
+  const projectID = $('#projectSelect').val();
+  const projectName = $('#projectSelect option:selected').text();
 
+  if (projectID === 'choose') {
+    displayWarning($('.save-palette-container'), 'You must choose a project...');
+  } else {
+    $('.save-container').addClass('none');
+    const postedPalette = await createPalette(projectID, palette);
+
+    appendPalettes(projectName, [palette]);
+    allPalettes.push({ ...palette, id: postedPalette.id, project_id: projectID });
+
+    clearInput($('.palette-input'));
+  }
+};
+
+const createPalette = async (id, palette) => {
   const post = await fetch(`/api/v1/projects/${id}/palettes`, {
     method: 'POST',
     headers: {
@@ -227,13 +247,7 @@ const savePalette = async () => {
     body: JSON.stringify(palette)
   });
 
-  const postedPalette = await post.json();
-
-  appendPalettes(projectName, [palette]);
-
-  allPalettes.push({ ...palette, id: postedPalette.id, project_id: id });
-
-  $('.palette-input').val('');
+  return await post.json();
 };
 
 function selectPalette () {
@@ -252,14 +266,9 @@ function selectPalette () {
     let hexChars = [...hex];
 
     hexChars.shift();
-    console.log(hexChars)
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
-    const chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ...letters];
-
     const nums = hexChars.map( char => chars.indexOf(char) );
-
     let isDark = determineDarkness(nums);
-    console.log(isDark)
+
     setDarkClass(isDark, $(color.hexName));
     setDarkClass(isDark, $(color.lock));
   });
