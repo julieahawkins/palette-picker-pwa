@@ -4,6 +4,8 @@ body {
   padding: 0;
   min-height: 100vh;
   font-family: sans-serif; }
+  body button {
+    cursor: pointer; }
 
 main {
   display: flex;
@@ -197,44 +199,69 @@ header {
   height: 100%;
   position: absolute;
   top: 0; }
-  .projects-container .close-btn {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    background-image: url("./assets/close.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 35px;
-    width: 35px; }
-  .projects-container h2 {
-    margin: 0; }
+  .projects-container header {
+    background: #000; }
+    .projects-container header .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      background-image: url("./assets/close.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 35px;
+      width: 35px; }
+    .projects-container header h2 {
+      margin: 0; }
 
 .projects {
   display: flex;
-  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding: 25px; }
-
-.project {
-  padding: 5px;
-  background: #fff;
-  border: 1px solid;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 10px; }
-  .project h3 {
-    margin-left: 15px; }
-
-.palette {
-  display: flex;
-  margin: 15px; }
-
-.palette-color {
-  width: 50px;
-  height: 50px; }
+  .projects .project {
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px; }
+    .projects .project header {
+      background: #333;
+      border: 2px solid #333;
+      border-radius: 10px 10px 0 0;
+      margin: 0;
+      height: 50px;
+      display: flex;
+      justify-content: space-between; }
+      .projects .project header h3 {
+        margin: 0 15px; }
+      .projects .project header p {
+        margin: 0 30px; }
+    .projects .project .palettes {
+      background: #FFF; }
+      .projects .project .palettes header {
+        background: #999;
+        border-radius: 0;
+        border: none; }
+        .projects .project .palettes header .delete-btn {
+          border: none;
+          background: none;
+          background-image: url("./assets/trash.svg");
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          height: 32px;
+          width: 28px;
+          margin: 0 10px; }
+          .projects .project .palettes header .delete-btn:hover {
+            background-image: url("./assets/trash-hover.svg"); }
+      .projects .project .palettes .palette {
+        display: flex;
+        margin: 15px;
+        cursor: pointer; }
+        .projects .project .palettes .palette .palette-color {
+          width: 50px;
+          height: 50px; }
 
 .none {
   display: none; }

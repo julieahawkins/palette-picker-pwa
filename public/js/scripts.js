@@ -1,53 +1,15 @@
-const paletteColors = [
-  {
-    div: color1,
-    hexName: name1,
-    lock: lock1
-  },
-  {
-    div: color2,
-    hexName: name2,
-    lock: lock2
-  },
-  {
-    div: color3,
-    hexName: name3,
-    lock: lock3
-  },
-  {
-    div: color4,
-    hexName: name4,
-    lock: lock4
-  },
-  {
-    div: color5,
-    hexName: name5,
-    lock: lock5
-  }
+const mainPalette = [
+  { div: color1, hexName: name1, lock: lock1 },
+  { div: color2, hexName: name2, lock: lock2 },
+  { div: color3, hexName: name3, lock: lock3 },
+  { div: color4, hexName: name4, lock: lock4 },
+  { div: color5, hexName: name5, lock: lock5 }
 ];
 
 let allPalettes = [];
 
-function updateLock () {
-  $(this).toggleClass('locked');
-};
-
-const setDarkClass = (isDark, colorElement) => {
-  const result = isDark 
-    ? colorElement.addClass('dark') 
-    : colorElement.removeClass('dark');
-
-  return result;
-};
-
-const setNoneClass = (bool, element) => {
-  const result = bool ? element.addClass('none') : element.removeClass('none');
-
-  return result;
-};
-
 const generatePalette = () => {
-  paletteColors.forEach(color => {
+  mainPalette.forEach(color => {
     if (!$(color.lock).hasClass('locked')) {
       const { hex, isDark } = generateColor();
 
@@ -59,6 +21,7 @@ const generatePalette = () => {
     }
   });
 };
+
 
 const generateColor = () => {
   const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -74,18 +37,38 @@ const randomIndex = () => {
   return Math.floor(Math.random() * 16);
 };
 
+function updateLock () {
+  $(this).toggleClass('locked');
+};
+
+const setDarkClass = (isDark, colorElement) => {
+  const result = isDark ? colorElement.addClass('dark') : colorElement.removeClass('dark');
+
+  return result;
+};
+
+const setNoneClass = (bool, element) => {
+  const result = bool ? element.addClass('none') : element.removeClass('none');
+
+  return result;
+};
 const openSavePrompt = () => {
   setNoneClass(false, $('.save-container'));
+
+  setNoneClass(true, $('.create-project-container'));
+  setNoneClass(true, $('.save-palette-container'));
 };
 
 const openSaveProject = () => {
   setNoneClass(true, $('.save-prompt-container'));
+
   setNoneClass(false, $('.create-project-container'));
 };
 
 const openSavePalette = () => {
   setNoneClass(true, $('.save-prompt-container'));
   setNoneClass(true, $('.create-project-container'));
+
   setNoneClass(false, $('.save-palette-container'));
 };
 
@@ -103,16 +86,20 @@ const fetchPalettes = async (project) => {
 
   allPalettes.push(...palette.palettes);
 
-  displayProjectPalettes(project.title, palette.palettes);
+  return [...palette.palettes]; 
 };
 
 const fetchProjects = async () => {
   const fetchedProjects = await fetch('/api/v1/projects');
   const projects = await fetchedProjects.json();
 
-  projects.projects.forEach(project => {
-    appendProjectOption(project.title, project.id)
-    fetchPalettes(project);
+  projects.projects.forEach( async (project) => {
+    appendProjectOption(project.title, project.id);
+    appendProjects(project.title);
+
+    const palettes = await fetchPalettes(project);
+
+    appendPalettes(project.title, palettes);
     updateCount();
   });
 };
@@ -124,23 +111,44 @@ const appendProjectOption = (projectTitle, projectID) => {
   }));
 };
 
-const displayProjectPalettes = (projectTitle, palettes) => {
-  palettes.forEach((colorPalette) => {
-    $('.projects').append(
-      `<div class="project">
-        <h3>${projectTitle}</h3>
-        <p>${colorPalette.title}</p>
-        <button class="delete-btn">delete</button>
+const appendProjects = (projectTitle) => {
+  console.log(projectTitle)
+  const projectTitleClass = projectTitle.replace(/\s/g, '');
+
+  $('.projects').append(
+    `<div class="project">
+        <header>
+          <h3>${projectTitle}</h3>
+        </header>
+        <div class="palettes ${projectTitleClass}">
+          <h5>This project has no saved Palettes...</h5>
+        </div>
+      </div>`
+  );
+};
+
+const appendPalettes = (projectTitle, palettes) => {
+  const projectTitleClass = projectTitle.replace(/\s/g, '');
+
+  if (palettes.length) {
+    setNoneClass(true, $(`.${projectTitleClass} h5`));
+
+    palettes.forEach(colorPalette =>{
+      $(`.${projectTitleClass}`).append(
+        `<header>
+          <p>${colorPalette.title}</p>
+          <button class="delete-btn"></button>
+        </header>
         <div class="palette">
           <div class="palette-color" style="background-color:${colorPalette.color1}"></div>
           <div class="palette-color" style="background-color:${colorPalette.color2}"></div>
           <div class="palette-color" style="background-color:${colorPalette.color3}"></div>
           <div class="palette-color" style="background-color:${colorPalette.color4}"></div>
           <div class="palette-color" style="background-color:${colorPalette.color5}"></div>
-        </div>  
-      </div>`
-    );
-  });
+        </div> `
+      );
+    });
+  }
 };
 
 const updateCount = () => {
@@ -166,7 +174,7 @@ const saveProject = async () => {
     const projectID = await post.json();
 
     appendProjectOption(title, projectID.id);
-
+    appendProjects(title);
     updateCount();
 
     $('.project-input').val('');
@@ -209,26 +217,21 @@ const savePalette = async () => {
 
   const postedPalette = await post.json();
 
-  displayProjectPalettes(projectName, [palette]);
+  appendPalettes(projectName, [palette]);
 
-
-  allPalettes.push({ ...palette, id: postedPalette.id });
+  allPalettes.push({ ...palette, id: postedPalette.id, project_id: id });
 
   $('.palette-input').val('');
 };
 
 async function deletePalette () {
-  const projectName = $(this).parent().children('h3').text();
-  const id = $(`#projectSelect option:contains(${projectName})`).val();
-  console.log(allPalettes)
-
   const paletteName = $(this).parent().children('p').text();
-  const paletteID = (allPalettes.find(palette => palette.title === paletteName)).id;
-  
-  allPalettes = allPalettes.filter(palette => palette.id !== paletteID);
-  console.log(allPalettes)
+  const palette = (allPalettes.find(palette => palette.title === paletteName));
+  const { id, project_id } = palette;
 
-  const paletteToDelete = await fetch(`/api/v1/projects/${id}/palettes/${paletteID}`, {
+  allPalettes = allPalettes.filter(palette => palette.id !== id);
+
+  const paletteToDelete = await fetch(`/api/v1/projects/${project_id}/palettes/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'

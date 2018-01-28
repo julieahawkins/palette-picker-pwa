@@ -4,6 +4,9 @@ body {
   padding: 0;
   min-height: 100vh;
   font-family: sans-serif;
+  button {
+    cursor: pointer;
+  }
 }
 
 main {
@@ -237,56 +240,85 @@ header {
   height: 100%;
   position: absolute;
   top: 0;
-  .close-btn {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    background-image: url('./assets/close.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 35px;
-    width: 35px;
-  }
-  h2 {
-    margin: 0;
+  header {
+    background: #000;
+    .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      background-image: url('./assets/close.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 35px;
+      width: 35px;
+    }
+    h2 {
+      margin: 0;
+    }
   }
 }
 
 .projects {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding: 25px;
-}
-
-.project {
-  padding: 5px;
-  background: #fff;
-  border: 1px solid;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 10px;
-  h3 {
-    margin-left: 15px;
+  .project {
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+    header {
+      background: #333;
+      border: 2px solid #333;
+      border-radius: 10px 10px 0 0;
+      margin: 0;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      h3 {
+        margin: 0 15px;
+      }
+      p {
+        margin: 0 30px;
+      }
+    }
+    .palettes {
+      background: #FFF;
+      header {
+        background: #999;
+        border-radius: 0;
+        border: none;
+        .delete-btn {
+          border: none;
+          background: none;
+          background-image: url('./assets/trash.svg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          height: 32px;
+          width: 28px;
+          margin: 0 10px;
+          &:hover {
+            background-image: url('./assets/trash-hover.svg');
+          }
+        }
+      }
+      .palette {
+        display: flex;
+        margin: 15px;
+        cursor: pointer;
+        .palette-color {
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
   }
 }
-
-.palette {
-  display: flex;
-  margin: 15px;
-}
-
-.palette-color {
-  width: 50px;
-  height: 50px;
-}
-
-
-
-
 
 
 .none {
