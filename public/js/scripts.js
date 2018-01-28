@@ -211,15 +211,22 @@ const savePalette = async () => {
 
   displayProjectPalettes(projectName, [palette]);
 
+
+  allPalettes.push({ ...palette, id: postedPalette.id });
+
   $('.palette-input').val('');
 };
 
 async function deletePalette () {
   const projectName = $(this).parent().children('h3').text();
   const id = $(`#projectSelect option:contains(${projectName})`).val();
-  
+  console.log(allPalettes)
+
   const paletteName = $(this).parent().children('p').text();
   const paletteID = (allPalettes.find(palette => palette.title === paletteName)).id;
+  
+  allPalettes = allPalettes.filter(palette => palette.id !== paletteID);
+  console.log(allPalettes)
 
   const paletteToDelete = await fetch(`/api/v1/projects/${id}/palettes/${paletteID}`, {
     method: 'DELETE',
