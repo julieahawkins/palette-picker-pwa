@@ -1,4 +1,5 @@
 body {
+  box-sizing: border-box;
   background: #E5E5E5;
   margin: 0;
   padding: 0;
@@ -194,11 +195,11 @@ header {
     background: darkgrey; }
 
 .projects-container {
-  background: rgba(10, 10, 10, 0.8);
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 0; }
+  top: 0;
+  overflow: hidden; }
   .projects-container header {
     background: #000; }
     .projects-container header .close-btn {
@@ -215,20 +216,26 @@ header {
       margin: 0; }
 
 .projects {
+  background: rgba(10, 10, 10, 0.8);
   display: flex;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding: 25px; }
+  padding: 25px;
+  height: 81%;
+  overflow: scroll;
+  margin: 0; }
   .projects .project {
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
+    border: 4px solid;
     display: flex;
     justify-content: center;
     flex-direction: column;
     margin: 10px; }
     .projects .project header {
       background: #333;
-      border: 2px solid #333;
-      border-radius: 10px 10px 0 0;
+      border-bottom: 4px solid #000;
+      border-radius: 5px 5px 0 0;
       margin: 0;
       height: 50px;
       display: flex;
@@ -239,6 +246,11 @@ header {
         margin: 0 30px; }
     .projects .project .palettes {
       background: #FFF; }
+      .projects .project .palettes h5 {
+        text-align: center;
+        width: 200px;
+        padding: 0 40px;
+        font-size: 14pt; }
       .projects .project .palettes header {
         background: #999;
         border-radius: 0;

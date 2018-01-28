@@ -26,6 +26,8 @@ const generatePalette = () => {
 };
 
 const generateColor = () => {
+
+
   const nums = letters.map(letter => randomIndex());
   const hex = `#${chars[nums[0]]}${chars[nums[1]]}${chars[nums[2]]}${chars[nums[3]]}${chars[nums[4]]}${chars[nums[5]]}`;
   const isDark = determineDarkness(nums);
@@ -179,6 +181,10 @@ const updateCount = () => {
   $(projectCount).text(num);
 };
 
+const displayWarning = (elem, msg) => {
+  elem.append(msg);
+};
+
 const saveProject = async () => {
   const title = $('.project-input').val();
   const alreadyExists = $(`#projectSelect option:contains(${title})`).val();
@@ -208,10 +214,6 @@ const createProject = async (title) => {
   openSavePalette();
 };
 
-const displayWarning = (elem, msg) => {
-  elem.append(msg);
-};
-
 const savePalette = async () => {
   const title = $('.palette-input').val();
   const colors = { 
@@ -229,25 +231,23 @@ const savePalette = async () => {
     displayWarning($('.save-palette-container'), 'You must choose a project...');
   } else {
     $('.save-container').addClass('none');
-    const postedPalette = await createPalette(projectID, palette);
-
-    appendPalettes(projectName, [palette]);
-    allPalettes.push({ ...palette, id: postedPalette.id, project_id: projectID });
-
+    createPalette(projectID, projectName, palette);
     clearInput($('.palette-input'));
   }
 };
 
-const createPalette = async (id, palette) => {
-  const post = await fetch(`/api/v1/projects/${id}/palettes`, {
+const createPalette = async (projectID, projectName, palette) => {
+  const postedPalette = await fetch(`/api/v1/projects/${projectID}/palettes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(palette)
   });
+  const paletteID = await postedPalette.json();
 
-  return await post.json();
+  appendPalettes(projectName, [palette]);
+  allPalettes.push({ ...palette, id: paletteID.id, project_id: projectID });
 };
 
 function selectPalette () {
