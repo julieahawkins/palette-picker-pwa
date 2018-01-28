@@ -29,8 +29,9 @@ header {
   }
   .view-palettes-btn {
     position: absolute;
+    border: none;
     top: 20px;
-    left: 10px;
+    right: 10px;
     font-size: 20pt;
     border-radius: 10px;
     padding: 5px;
@@ -44,7 +45,7 @@ header {
 
 #projectCount {
   background: lightgrey;
-  padding: 6px;
+  padding: 5px;
   border-radius: 0 8px 8px 0;
   margin-right: -5px;
 }
@@ -96,7 +97,7 @@ header {
   color: #000;
   opacity: 0.5;
   font-weight: 900;
-  font-size: 18pt;
+  font-size: 20pt;
 }
 
 .dark {
@@ -131,6 +132,7 @@ header {
 .save-btn {
   font-size: 20pt;
   border-radius: 10px;
+  border: none;
   padding: 5px;
   width: 600px;
   outline: none;
@@ -186,6 +188,9 @@ header {
   margin-top: 20px;
   padding: 20px 0;
   width: 100%;
+  h2 {
+    text-align: center;
+  }
   span {
     font-size: 16pt;
   }
@@ -201,6 +206,7 @@ header {
   button {
     background: #FFF;
     border-radius: 10px;
+    border: none;
     &:hover {
       color: #fff;
       background: darkgrey;
@@ -233,7 +239,7 @@ header {
   top: 0;
   .close-btn {
     position: absolute;
-    top: 5px;
+    top: 30px;
     right: 40px;
     background-image: url('./assets/close.svg');
     background-repeat: no-repeat;
