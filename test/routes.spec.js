@@ -1,8 +1,12 @@
-const knex = require('../db/knex');
+process.env.NODE_ENV = 'test';
+
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
 const server = require('../server');
+
+const config = require('../knexfile')['test'];
+const knex = require('knex')(config);
 
 chai.use(chaiHttp);
 
@@ -190,15 +194,13 @@ describe('API Routes', () => {
       return chai.request(server)
         .get('/api/v1/projects')
         .then(response => {
-          response.body.projects[0].id;
+          return response.body.projects[0].id;
         })
         .then(id => {
           return chai.request(server)
-            .get(`/api/v1/projects${id}/palettes`)
+            .get(`/api/v1/projects/${id}/palettes`)
             .then(response => {
-              console.log(response)
               return { projectID: id, paletteID: response.body.palettes[0].id }
-              // response.should.have.status(204)
             })
             .then(result => {
               return chai.request(server)
