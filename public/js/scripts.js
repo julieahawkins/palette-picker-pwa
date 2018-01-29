@@ -72,6 +72,7 @@ const clearInput = (input) => {
 
 const openSavePrompt = () => {
   setNoneClass(false, $('.save-container'));
+  setNoneClass(false, $('.save-prompt-container'));
 
   setNoneClass(true, $('.create-project-container'));
   setNoneClass(true, $('.save-palette-container'));
@@ -209,7 +210,7 @@ const createProject = async (title) => {
   appendProjectOption(title, projectID.id);
   appendProjects(title);
   updateCount();
-  $(`#projectSelect option[value=${projectID}]`).prop('selected', true);
+  $(`#projectSelect option[value=${projectID.id}]`).prop('selected', true);
   openSavePalette();
 };
 

@@ -206,6 +206,7 @@ header {
       position: absolute;
       top: 30px;
       right: 40px;
+      cursor: pointer;
       background-image: url("./assets/close.svg");
       background-repeat: no-repeat;
       background-size: cover;
@@ -218,7 +219,6 @@ header {
 .projects {
   background: rgba(10, 10, 10, 0.8);
   display: flex;
-  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 25px;

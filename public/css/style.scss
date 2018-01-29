@@ -178,7 +178,6 @@ header {
   }
 }
 
-
 .save-container {
   background: rgba(10, 10, 10, 0.8);
   position: absolute;
@@ -247,12 +246,16 @@ header {
       position: absolute;
       top: 30px;
       right: 40px;
+      cursor: pointer;
       background-image: url('./assets/close.svg');
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
       height: 35px;
       width: 35px;
+      // &:hover {
+      //   background-image: url('./assets/close-hover.svg');
+      // }
     }
     h2 {
       margin: 0;
@@ -263,7 +266,7 @@ header {
 .projects {
   background: rgba(10, 10, 10, 0.8);
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 25px;
