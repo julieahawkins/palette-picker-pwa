@@ -235,6 +235,7 @@ const savePalette = async () => {
     $('.save-container').addClass('none');
     createPalette(projectID, projectName, palette);
     clearInput($('.palette-input'));
+    $('#projectSelect option[value="choose"]').prop('selected', true);
   }
 };
 
