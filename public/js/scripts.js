@@ -26,8 +26,6 @@ const generatePalette = () => {
 };
 
 const generateColor = () => {
-
-
   const nums = letters.map(letter => randomIndex());
   const hex = `#${chars[nums[0]]}${chars[nums[1]]}${chars[nums[2]]}${chars[nums[3]]}${chars[nums[4]]}${chars[nums[5]]}`;
   const isDark = determineDarkness(nums);
@@ -290,7 +288,7 @@ async function deletePalette () {
     }
   });
 
-  (this).closest('.project').remove();
+  (this).closest('.single-palette').remove();
 };
 
 $(document).ready(fetchProjects());
