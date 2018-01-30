@@ -74,6 +74,9 @@ const openSavePrompt = () => {
 
   setNoneClass(true, $('.create-project-container'));
   setNoneClass(true, $('.save-palette-container'));
+
+  setNoneClass(true, $('.project-error'));
+  setNoneClass(true, $('.palette-error'));
 };
 
 const openSaveProject = () => {
@@ -91,6 +94,10 @@ const openSavePalette = () => {
 
 const viewProjects = () => {
   setNoneClass(false, $('.projects-container'));
+};
+
+function closeForms() {
+  setNoneClass(true, $(this.closest('.save-container')));
 };
 
 const closeProjects = () => {
@@ -188,11 +195,13 @@ const saveProject = async () => {
   const alreadyExists = $(`#projectSelect option:contains(${title})`).val();
 
   if (!title) {
-    displayWarning($('.create-project-container'), 'You must include a project name...');
+    setNoneClass(false, $('.project-error'));
+    displayWarning($('.project-error'), 'You must include a project name...');
   } else if (!alreadyExists) {
     createProject(title);
   } else {
-    displayWarning($('.create-project-container'), `A project called ${title} already exists!`);
+    setNoneClass(false, $('.project-error'));
+    displayWarning($('.project-error'), `A project called ${title} already exists!`);
   }
   clearInput($('.project-input'));
 };
@@ -228,11 +237,13 @@ const savePalette = async () => {
   const projectName = $('#projectSelect option:selected').text();
 
   if (projectID === 'choose') {
-    displayWarning($('.save-palette-container'), 'You must choose a project...');
+    setNoneClass(false, $('.palette-error'));
+    displayWarning($('.palette-error'), 'You must choose a project...');
   } else if (!title) {
-    displayWarning($('.save-palette-container'), 'You must name the palette...');
+    setNoneClass(false, $('.palette-error'));
+    displayWarning($('.palette-error'), 'You must name the palette...');
   } else {
-    $('.save-container').addClass('none');
+    setNoneClass(true, $('.save-container'));
     createPalette(projectID, projectName, palette);
     clearInput($('.palette-input'));
     $('#projectSelect option[value="choose"]').prop('selected', true);
@@ -327,6 +338,8 @@ $('.save-palette-btn').on('click', savePalette);
 
 $('.view-palettes-btn').on('click', viewProjects);
 $('.close-btn').on('click', closeProjects);
+$('.close-form-btn').on('click', closeForms);
+
 $('.projects').on('click', '.palette', selectPalette);
 $('.projects').on('click', '.delete-btn', deletePalette);
 

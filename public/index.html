@@ -15,7 +15,6 @@
 
     <main>
 
-
       <div class="palette-container">
         <div class="single-color" id="color1">
           <span class="color-name dark" id="name1">#FF0000</span>
@@ -51,22 +50,26 @@
 
       <div class="save-container none">
         <div class="save-prompt-container">
+          <div class="close-form-btn"></div>
           <h2>Save This Palette!</h2>
           <button class="open-save-projects-btn">Create a New Project</button>
           <span>OR</span>
-          <button class="open-save-palettes-btn">Save Palette to an Existing Project</button>
+          <button class="open-save-palettes-btn">Save to Existing Project</button>
         </div>
 
         <div class="create-project-container none">
+          <div class="close-form-btn"></div>
           <h2>Create a New Project!</h2>
+          <p class="project-error none"></p>
           <input class="project-input" type="text" placeholder="Project Name..."> 
 
           <button class="save-project-btn">Save Project</button>
         </div>
 
         <div class="save-palette-container none">
+          <div class="close-form-btn"></div>
           <h2>Name and Save This Palette!</h2>
-
+          <p class="palette-error none"></p>
           <select id="projectSelect">
             <option value="choose">Choose a Project</option>
             <!-- created project titles append here -->
@@ -76,8 +79,6 @@
 
           <button class="save-palette-btn">Save Palette</button>
         </div>
-
-
       </div>
       
       <div class="projects-container none">
@@ -89,7 +90,6 @@
           <!-- projects palettes append here -->
         </div>
       </div>
-
 
     </main>
 

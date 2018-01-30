@@ -178,6 +178,17 @@ header {
     .save-container button:hover {
       color: #fff;
       background: darkgrey; }
+  .save-container .close-form-btn {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    cursor: pointer;
+    background-image: url("./assets/close.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 20px;
+    width: 20px; }
 
 .save-prompt-container {
   display: flex;
