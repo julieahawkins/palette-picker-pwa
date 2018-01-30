@@ -23,7 +23,9 @@ const requireHTTPS = (request, response, next) => {
   next();
 };
 
-app.use(requireHTTPS);
+if (process.env.NODE_ENV !== 'test' || process.env.NODE_ENV !== 'development') {
+  app.use(requireHTTPS)
+}
 
 app.set('port', process.env.PORT || 3000);
 
