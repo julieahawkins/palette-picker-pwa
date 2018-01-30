@@ -14,7 +14,6 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   min-height: 100vh;
   margin-top: -100px;
 }
@@ -59,7 +58,7 @@ header {
   align-items: center;
   justify-content: center;
   padding: 15px;
-  margin: 30px;
+  margin-top: 150px;
   border-radius: 10px;
   width: 90%;
 }
@@ -281,7 +280,7 @@ header {
 .projects {
   background: rgba(10, 10, 10, 0.8);
   display: flex;
-  // justify-content: center;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 25px;
