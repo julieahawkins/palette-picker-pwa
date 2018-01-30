@@ -289,6 +289,19 @@ async function deletePalette () {
   });
 
   (this).closest('.single-palette').remove();
+  
+  checkForPalettes(project_id);
+};
+
+const checkForPalettes = (project_id) => {
+  const foundPalette = allPalettes.find(palette => palette.project_id === project_id);
+  if (!foundPalette) {
+    console.log('should append')
+    const projectTitle = $(`#projectSelect option[value=${project_id}]`).text();
+    const projectTitleClass = projectTitle.replace(/\s/g, '');
+
+    $(`.${projectTitleClass}`).append('<h5>This project has no saved Palettes...</h5>');
+  }
 };
 
 $(document).ready(fetchProjects());
