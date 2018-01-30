@@ -16,6 +16,15 @@ function checkParams(body, prop) {
   return { propsFound: true }
 };
 
+const requireHTTPS = (request, response, next) => {
+  if (request.headers['x-forwarded-proto'] !== 'https') {
+    return response.redirect('https://' + request.get('host') + request.url);
+  }
+  next();
+};
+
+app.use(requireHTTPS);
+
 app.set('port', process.env.PORT || 3000);
 
 app.use(bodyParser.json());
