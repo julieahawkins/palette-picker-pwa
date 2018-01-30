@@ -23,18 +23,33 @@ const generatePalette = () => {
       setDarkClass(isDark, $(color.lock));
     }
   });
+  chooseTitleHighlight();
+};
+
+const chooseTitleHighlight = () => {
+  const randomNum = randomNumber(mainPalette.length);
+  const color = $(mainPalette[randomNum].hexName).text();
+
+  $('.title-highlight').css("color", color);
+};
+
+const chooseSubTitleHighlight = () => {
+  const randomNum = randomNumber(allPalettes.length);
+  const color = allPalettes[randomNum][`color${randomNumber(5)}`];
+
+  $('.subtitle-highlight').css("color", color);
 };
 
 const generateColor = () => {
-  const nums = letters.map(letter => randomIndex());
+  const nums = letters.map(letter => randomNumber(16));
   const hex = `#${chars[nums[0]]}${chars[nums[1]]}${chars[nums[2]]}${chars[nums[3]]}${chars[nums[4]]}${chars[nums[5]]}`;
   const isDark = determineDarkness(nums);
 
   return { hex, isDark };
 };
 
-const randomIndex = () => {
-  return Math.floor(Math.random() * 16);
+const randomNumber = (max) => {
+  return Math.floor(Math.random() * max);
 };
 
 const determineDarkness = (nums) => {
@@ -94,6 +109,7 @@ const openSavePalette = () => {
 
 const viewProjects = () => {
   setNoneClass(false, $('.projects-container'));
+  chooseSubTitleHighlight();
 };
 
 function closeForms() {

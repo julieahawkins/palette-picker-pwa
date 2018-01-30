@@ -26,16 +26,22 @@ header {
   background: #333;
   color: #fff;
   margin: 0;
+  font-family: 'Rammetto One', sans-serif;
   h1 {
     margin: 0;
     font-size: 40pt;
+    .title-highlight {
+      color: #BBB;
+    }
   }
   .view-palettes-btn {
+    color: #333;
     position: absolute;
     border: none;
     top: 20px;
     right: 10px;
     font-size: 20pt;
+    font-family: 'Oswald', sans-serif;
     border-radius: 10px;
     padding: 5px;
     margin: 5px;
@@ -72,7 +78,7 @@ header {
   padding: 15px;
   border-radius: 25px;
   width: 200px;
-  font-family: sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 14pt;
   height: 420px;
   .lock-icon {
@@ -100,7 +106,9 @@ header {
   color: #000;
   opacity: 0.5;
   font-weight: 900;
-  font-size: 20pt;
+  font-size: 25pt;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 2px;
 }
 
 .dark {
@@ -133,7 +141,9 @@ header {
 
 .colors-btn,
 .save-btn {
+  color: #333;
   font-size: 20pt;
+  font-family: 'Oswald', sans-serif;
   border-radius: 10px;
   border: none;
   padding: 5px;
@@ -151,8 +161,10 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 25pt;
   span {
     font-size: 12pt;
+    font-family: sans-serif;
   }
 }
 
@@ -272,7 +284,11 @@ header {
       // }
     }
     h2 {
+      font-size: 40pt;
       margin: 0;
+      .subtitle-highlight {
+        color: #BBB;
+      }
     }
   }
 }
@@ -302,8 +318,10 @@ header {
       height: 50px;
       display: flex;
       justify-content: space-between;
+      font-family: 'Oswald', sans-serif;
       h3 {
         margin: 0 15px;
+        font-size: 25pt;
       }
       p {
         margin: 0 30px;
@@ -321,6 +339,8 @@ header {
         background: #999;
         border-radius: 0;
         border: none;
+        font-family: 'Oswald', sans-serif;
+        font-size: 20pt;
         .delete-btn {
           border: none;
           background: none;
