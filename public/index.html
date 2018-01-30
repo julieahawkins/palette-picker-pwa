@@ -5,20 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Rammetto+One" rel="stylesheet">
   </head>
   <body>
 
     <header>
-      <h1>PALETTE PICKER</h1>
+      <h1>PALETTE <span class="title-highlight">PICKER</span></h1>
+      <button class="view-palettes-btn">Saved Projects <span id="projectCount">0</span></button>
     </header>
 
     <main>
-      <button class="view-palettes-btn">Saved Projects <span id="projectCount">0</span> </button>
-      <div class="palette-container">
 
+      <div class="palette-container">
         <div class="single-color" id="color1">
           <span class="color-name dark" id="name1">#FF0000</span>
-          <div id="lock1" class="lock-icon"></div>
+          <div id="lock1" class="lock-icon dark"></div>
         </div>
 
         <div class="single-color" id="color2">
@@ -33,37 +34,45 @@
 
         <div class="single-color" id="color4">
           <span class="color-name dark" id="name4">#0000FF</span>
-          <div id="lock4" class="lock-icon"></div>
+          <div id="lock4" class="lock-icon dark"></div>
         </div>
 
         <div class="single-color" id="color5">
           <span class="color-name dark" id="name5">#FF00FF</span>
-          <div id="lock5" class="lock-icon"></div>
+          <div id="lock5" class="lock-icon dark"></div>
         </div>
       </div>
       
       <div class="palette-btn-container">
-        <button class="colors-btn">Generate New Palette <span>(click here or space-bar)</span></button>
+        <button class="colors-btn">Generate New Palette <span>(space-bar)</span></button>
 
-        <button class="save-btn">
-          <!-- <div class="heart"></div> -->
-        Save</button>
+        <button class="save-btn"><div class="heart"></div>SAVE</button>
       </div>
 
       <div class="save-container none">
+        <div class="save-prompt-container">
+          <div class="close-form-btn"></div>
+          <h2>Save This Palette!</h2>
+          <button class="open-save-projects-btn">Create a New Project</button>
+          <span>OR</span>
+          <button class="open-save-palettes-btn">Save to Existing Project</button>
+        </div>
 
-        <div class="create-project-container">
-          <label>Create a New Project:
+        <div class="create-project-container none">
+          <div class="close-form-btn"></div>
+          <h2>Create a New Project!</h2>
+          <p class="project-error none"></p>
           <input class="project-input" type="text" placeholder="Project Name..."> 
-          </label>
 
           <button class="save-project-btn">Save Project</button>
         </div>
 
-        <div class="save-palette-container">
-          <!-- <button>Create a New Project</button> -->
-
+        <div class="save-palette-container none">
+          <div class="close-form-btn"></div>
+          <h2>Name and Save This Palette!</h2>
+          <p class="palette-error none"></p>
           <select id="projectSelect">
+            <option value="choose">Choose a Project</option>
             <!-- created project titles append here -->
           </select>
 
@@ -71,19 +80,17 @@
 
           <button class="save-palette-btn">Save Palette</button>
         </div>
-
       </div>
       
       <div class="projects-container none">
         <header>
           <div class="close-btn"></div>
-          <h2>YOUR PALETTES</h2>
+          <h2>YOUR <span class="subtitle-highlight">PALETTES</span></h2>
         </header>
         <div class="projects">
           <!-- projects palettes append here -->
         </div>
       </div>
-
 
     </main>
 

@@ -1,21 +1,12 @@
 body {
+  box-sizing: border-box;
   background: #E5E5E5;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   font-family: sans-serif;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  background: #333;
-  color: #fff;
-  margin: 0;
-  h1 {
-    margin: 0;
+  button {
+    cursor: pointer;
   }
 }
 
@@ -23,28 +14,47 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   min-height: 100vh;
-  margin-top: -50px;
+  margin-top: -100px;
 }
 
-.view-palettes-btn {
-  position: absolute;
-  top: 70px;
-  right: 60px;
-  font-size: 16pt;
-  border-radius: 10px;
-  padding: 5px;
-  margin: 5px;
-  &:hover {
-    color: #fff;
-    background: darkgrey;
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background: #333;
+  color: #fff;
+  margin: 0;
+  font-family: 'Rammetto One', sans-serif;
+  h1 {
+    margin: 0;
+    font-size: 40pt;
+    .title-highlight {
+      color: #BBB;
+    }
+  }
+  .view-palettes-btn {
+    color: #333;
+    position: absolute;
+    border: none;
+    top: 20px;
+    right: 10px;
+    font-size: 20pt;
+    font-family: 'Oswald', sans-serif;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
+    &:hover {
+      color: #fff;
+      background: darkgrey;
+    }
   }
 }
 
 #projectCount {
   background: lightgrey;
-  padding: 6px;
+  padding: 5px;
   border-radius: 0 8px 8px 0;
   margin-right: -5px;
 }
@@ -54,7 +64,7 @@ main {
   align-items: center;
   justify-content: center;
   padding: 15px;
-  margin: 15px;
+  margin-top: 150px;
   border-radius: 10px;
   width: 90%;
 }
@@ -67,17 +77,38 @@ main {
   height: 100px;
   padding: 15px;
   border-radius: 25px;
-  width: 120px;
-  font-family: sans-serif;
+  width: 200px;
+  font-family: 'Oswald', sans-serif;
   font-size: 14pt;
-  height: 300px;
+  height: 420px;
+  .lock-icon {
+    background-image: url('./assets/unlocked.svg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 60px;
+    width: 42px;
+  }
+
+  .locked {
+    background-image: url('./assets/locked.svg');
+  }
+  .lock-icon.dark {
+    background-image: url('./assets/unlocked-dark.svg');
+  }
+  .locked.dark {
+    background-image: url('./assets/locked-dark.svg');
+  }
 }
 
 .color-name {
   color: #000;
   opacity: 0.5;
   font-weight: 900;
-  font-size: 18pt;
+  font-size: 25pt;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 2px;
 }
 
 .dark {
@@ -104,29 +135,19 @@ main {
   background: #FF00FF;
 }
 
-.lock-icon {
-  background-image: url('./assets/unlocked.svg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 30px;
-  width: 27px;
-}
-
-.locked {
-  background-image: url('./assets/locked.svg');
-}
-
 .palette-btn-container {
   display: flex;
 }
 
 .colors-btn,
 .save-btn {
+  color: #333;
   font-size: 20pt;
+  font-family: 'Oswald', sans-serif;
   border-radius: 10px;
+  border: none;
   padding: 5px;
-  width: 500px;
+  width: 600px;
   outline: none;
   margin: 5px;
   &:hover {
@@ -140,31 +161,53 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 25pt;
   span {
     font-size: 12pt;
+    font-family: sans-serif;
   }
 }
 
 .save-btn {
-  width: 100px;
+  width: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .heart {
+    background-image: url('./assets/heart.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 23px;
+    width: 25px;
+    margin: 0 3px;
+  }
+  &:hover {
+    .heart {
+      background-image: url('./assets/heart-hover.svg');
+    }
+  }
 }
 
-// .heart {
-//   background-image: url('./assets/close.svg');
-//   background-repeat: no-repeat;
-//   background-size: cover;
-//   background-position: center;
-//   height: 20px;
-//   width: 20px;
-// }
-
 .save-container {
+  background: rgba(10, 10, 10, 0.8);
+  position: absolute;
+  top: 250px;
+  color: #FFF;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  width: 90%;
+  padding: 20px 0;
+  width: 100%;
+  h2 {
+    text-align: center;
+  }
+  span {
+    font-size: 16pt;
+  }
   label,
   input,
   button,
@@ -172,8 +215,39 @@ main {
   option {
     font-size: 16pt;
     padding: 5px;
-    margin: 5px;
+    margin: 10px;
   }
+  button {
+    background: #FFF;
+    border-radius: 10px;
+    border: none;
+    &:hover {
+      color: #fff;
+      background: darkgrey;
+    }
+  }
+  .close-form-btn {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    cursor: pointer;
+    background-image: url('./assets/close.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 20px;
+    width: 20px;
+    // &:hover {
+    //   background-image: url('./assets/close-hover.svg');
+    // }
+  }
+}
+
+.save-prompt-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .save-palette-btn,
@@ -187,61 +261,113 @@ main {
 }
 
 .projects-container {
-  background: rgba(10, 10, 10, 0.8);
-  width: 95%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: 65px;
-  .close-btn {
-    position: absolute;
-    top: 5px;
-    right: 40px;
-    background-image: url('./assets/close.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 35px;
-    width: 35px;
-  }
-  h2 {
-    margin: 0;
+  top: 0;
+  overflow: hidden;
+  header {
+    background: #000;
+    .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      cursor: pointer;
+      background-image: url('./assets/close.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 35px;
+      width: 35px;
+      // &:hover {
+      //   background-image: url('./assets/close-hover.svg');
+      // }
+    }
+    h2 {
+      font-size: 40pt;
+      margin: 0;
+      .subtitle-highlight {
+        color: #BBB;
+      }
+    }
   }
 }
 
 .projects {
+  background: rgba(10, 10, 10, 0.8);
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding: 25px;
-}
-
-.project {
-  padding: 5px;
-  background: #fff;
-  border: 1px solid;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 10px;
-  h3 {
-    margin-left: 15px;
+  height: 81%;
+  overflow: scroll;
+  margin: 0;
+  .project {
+    border-radius: 10px 10px 0 0;
+    border: 4px solid;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+    header {
+      background: #333;
+      border-bottom: 4px solid #000;
+      border-radius: 5px 5px 0 0;
+      margin: 0;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Oswald', sans-serif;
+      h3 {
+        margin: 0 15px;
+        font-size: 25pt;
+      }
+      p {
+        margin: 0 30px;
+      }
+    }
+    .palettes {
+      background: #FFF;
+      h5 {
+        text-align: center;
+        width: 200px;
+        padding: 0 40px;
+        font-size: 14pt;
+      }
+      header {
+        background: #999;
+        border-radius: 0;
+        border: none;
+        font-family: 'Oswald', sans-serif;
+        font-size: 20pt;
+        .delete-btn {
+          border: none;
+          background: none;
+          background-image: url('./assets/trash.svg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          height: 32px;
+          width: 28px;
+          margin: 0 10px;
+          &:hover {
+            background-image: url('./assets/trash-hover.svg');
+          }
+        }
+      }
+      .palette {
+        display: flex;
+        margin: 15px;
+        cursor: pointer;
+        .palette-color {
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
   }
 }
-
-.palette {
-  display: flex;
-  margin: 15px;
-}
-
-.palette-color {
-  width: 50px;
-  height: 50px;
-}
-
-
-
-
 
 
 .none {

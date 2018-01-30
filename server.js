@@ -7,6 +7,15 @@ const environment = process.env.NODE_ENV || 'development';
 const config = require('./knexfile')[environment];
 const database = require('knex')(config);
 
+function checkParams(body, prop) {
+  for (let requiredParameter of [ prop ]) {
+    if (!body[requiredParameter]) {
+      return { propsFound: false, requiredParameter }
+    }
+  }
+  return { propsFound: true }
+};
+
 app.set('port', process.env.PORT || 3000);
 
 app.use(bodyParser.json());
@@ -22,7 +31,7 @@ app.get('/api/v1/projects', (request, response) => {
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.get('/api/v1/projects/:id/palettes', (request, response) => {
@@ -34,16 +43,18 @@ app.get('/api/v1/projects/:id/palettes', (request, response) => {
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
+  
+  const result = checkParams(project, 'title');
 
-  for (let requiredParameter of [ 'title' ]) {
-    if (!project[requiredParameter]) {
-      return response.status(422).json({ error: `You are missing ${requiredParameter}` });
-    }
+  if (!result.propsFound) {
+    return response.status(422).json({ 
+      error: `You are missing ${result.requiredParameter}` 
+    });
   }
 
   database('projects').insert(project, 'id')
@@ -52,26 +63,28 @@ app.post('/api/v1/projects', (request, response) => {
     })
     .catch(error => {
       return response.status(500).json({ error });
-    })
+    });
 });
 
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
   const { id } = request.params;
   const palette = Object.assign({}, request.body, { project_id: id });
-
-  for (let requiredParameter of [ 'title' ]) {
-    if (!palette[requiredParameter]) {
-      return response.status(422).json({ error: `You are missing ${requiredParameter}` });
-    }
+  
+  const result = checkParams(palette, 'title');
+  
+  if (!result.propsFound) {
+    return response.status(422).json({ 
+      error: `You are missing ${result.requiredParameter}` 
+    });
   }
 
   database('palettes').insert(palette, 'id')
     .then(palette => {
-      return response.status(201).json({ id: palette[0] })
+      return response.status(201).json({ id: palette[0] });
     })
     .catch(error => {
-      return response.status(500).json({ error })
-    })
+      return response.status(500).json({ error });
+    });
 });
 
 app.delete('/api/v1/projects/:projectID/palettes/:id', (request, response) => {
@@ -79,15 +92,15 @@ app.delete('/api/v1/projects/:projectID/palettes/:id', (request, response) => {
   
   database('palettes').where('project_id', projectID).where('id', id).del()
     .then(result => {
-      return response.status(204).json({ result })
+      return response.status(204).json({ result });
     })
     .catch(error => {
-      return response.status(500).json({ error })
-    })
+      return response.status(500).json({ error });
+    });
 });
 
 app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+  console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
 
 module.exports = app;
