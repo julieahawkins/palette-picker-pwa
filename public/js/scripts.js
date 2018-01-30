@@ -187,7 +187,9 @@ const saveProject = async () => {
   const title = $('.project-input').val();
   const alreadyExists = $(`#projectSelect option:contains(${title})`).val();
 
-  if (!alreadyExists) {
+  if (!title) {
+    displayWarning($('.create-project-container'), 'You must include a project name...');
+  } else if (!alreadyExists) {
     createProject(title);
   } else {
     displayWarning($('.create-project-container'), `A project called ${title} already exists!`);
@@ -227,6 +229,8 @@ const savePalette = async () => {
 
   if (projectID === 'choose') {
     displayWarning($('.save-palette-container'), 'You must choose a project...');
+  } else if (!title) {
+    displayWarning($('.save-palette-container'), 'You must name the palette...');
   } else {
     $('.save-container').addClass('none');
     createPalette(projectID, projectName, palette);
@@ -289,7 +293,7 @@ async function deletePalette () {
   });
 
   (this).closest('.single-palette').remove();
-  
+
   checkForPalettes(project_id);
 };
 
