@@ -32,6 +32,7 @@ header {
   header .view-palettes-btn {
     color: #333;
     position: absolute;
+    background: #FFF;
     border: none;
     top: 20px;
     right: 10px;
@@ -121,6 +122,7 @@ header {
   font-size: 20pt;
   font-family: 'Oswald', sans-serif;
   border-radius: 10px;
+  background: #FFF;
   border: none;
   padding: 5px;
   width: 600px;
