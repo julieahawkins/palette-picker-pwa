@@ -11,6 +11,13 @@ let allPalettes = [];
 const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 const chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ...letters];
 
+const nofification = (name) => {
+  navigator.serviceWorker.controller.postMessage({
+    type: 'add-palette',
+    paletteTitle: name
+  })
+}
+
 const generatePalette = () => {
   mainPalette.forEach(color => {
     if (!$(color.lock).hasClass('locked')) {
@@ -261,6 +268,7 @@ const savePalette = async () => {
   } else {
     setNoneClass(true, $('.save-container'));
     createPalette(projectID, projectName, palette);
+    nofification(title);
     clearInput($('.palette-input'));
     $('#projectSelect option[value="choose"]').prop('selected', true);
   }
