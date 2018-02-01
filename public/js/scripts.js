@@ -359,4 +359,16 @@ $('.close-form-btn').on('click', closeForms);
 $('.projects').on('click', '.palette', selectPalette);
 $('.projects').on('click', '.delete-btn', deletePalette);
 
-
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('../service-worker.js')
+      .then(registration => navigator.serviceWorker.ready)
+      .then(registration => {
+        Notification.requestPermission();
+        console.log('serviceWorker registration successful');
+      })
+      .catch(error => {
+        console.log(`serviceWorker failed at ${error}`);
+      })
+  })
+}

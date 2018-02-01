@@ -1,5 +1,5 @@
 {
-  "short_name": "palettePickerHawk",
+  "short_name": "PalettePickerHawk",
   "name": "PalettePicker",
   "background_color": "#333",
   "theme_color": "#999",
@@ -26,5 +26,5 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "index.html?launcher=true"
+  "start_url": "index.html"
 }
