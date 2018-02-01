@@ -23,7 +23,7 @@ const requireHTTPS = (request, response, next) => {
   next();
 };
 
-if (process.env.NODE_ENV !== 'test' || process.env.NODE_ENV !== 'development') {
+if (process.env.NODE_ENV === 'production') {
   app.use(requireHTTPS)
 }
 
