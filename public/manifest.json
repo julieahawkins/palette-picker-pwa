@@ -1,0 +1,30 @@
+{
+  "short_name": "palettePickerHawk",
+  "name": "PalettePicker",
+  "background_color": "#333",
+  "theme_color": "#999",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "css/assets/palette.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "css/assets/palette.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "css/assets/palette.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "css/assets/palette.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html?launcher=true"
+}
