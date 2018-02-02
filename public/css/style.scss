@@ -374,3 +374,51 @@ header {
 .none {
   display: none;
 }
+
+@media screen and (max-width: 999px) {
+
+  header {
+    flex-direction: column;
+    height: auto;
+    .view-palettes-btn {
+      position: static;
+      color: magenta;
+    }
+  }
+}
+
+@media screen and (max-width: 933px) {
+  .palette-btn-container {
+    width: 90%;
+  }
+
+  .colors-btn,
+  .save-btn {
+    width: 70%;
+  }
+
+  .save-btn {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .palette-container {
+    flex-direction: column;
+  }
+
+  .single-color {
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  header {
+    h1 {
+      font-size: 30pt;
+      text-align: center;
+    }
+  }
+}
