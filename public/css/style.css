@@ -314,8 +314,7 @@ header {
     flex-direction: column;
     height: auto; }
     header .view-palettes-btn {
-      position: static;
-      color: magenta; } }
+      position: static; } }
 
 @media screen and (max-width: 933px) {
   .palette-btn-container {
